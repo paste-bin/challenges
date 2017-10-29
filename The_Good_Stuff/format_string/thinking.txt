@@ -1,0 +1,92 @@
+thinking.txt
+
+
+gdb-peda$ stack 100
+0000| 0xffffd2dc --> 0x565557a0 (<do_the_format+220>:	add    esp,0x10)
+0004| 0xffffd2e0 --> 0xffffd2f3 ("AAAA\n")
+0008| 0xffffd2e4 --> 0x63 ('c')
+0012| 0xffffd2e8 --> 0xf7fac5a0 --> 0xfbad2288 
+0016| 0xffffd2ec --> 0x565556d0 (<do_the_format+12>:	add    ebx,0x1930)
+0020| 0xffffd2f0 --> 0x41000001 
+0024| 0xffffd2f4 ("AAA\n")
+0028| 0xffffd2f8 --> 0x0 
+0032| 0xffffd2fc --> 0xf7ffdc08 --> 0xf7fd7000 (jg     0xf7fd7047)
+0036| 0xffffd300 --> 0xffffd31f --> 0xfacd60f7 
+0040| 0xffffd304 --> 0x0 
+0044| 0xffffd308 --> 0xf7e63ab9 (<_IO_file_overflow+9>:	add    edx,0x148547)
+0048| 0xffffd30c --> 0xf7faa960 --> 0x0 
+0052| 0xffffd310 --> 0xf7ffd000 --> 0x23f3c 
+0056| 0xffffd314 --> 0x565552c0 --> 0x62696c00 ('')
+0060| 0xffffd318 --> 0xf7e612b9 (<_IO_file_sync+9>:	add    esi,0x14ad47)
+0064| 0xffffd31c --> 0xf7faa960 --> 0x0 
+0068| 0xffffd320 --> 0xf7facd60 --> 0xfbad2a84 
+0072| 0xffffd324 --> 0xf7fac000 --> 0x1b2db0 
+0076| 0xffffd328 --> 0xffffd358 --> 0x1 
+0080| 0xffffd32c --> 0xf7e569e4 (<fflush+84>:	xor    edx,edx)
+0084| 0xffffd330 --> 0xf7facd60 --> 0xfbad2a84 
+0088| 0xffffd334 --> 0x56557000 --> 0x1eec 
+0092| 0xffffd338 --> 0x1 
+0096| 0xffffd33c --> 0xf7fac000 --> 0x1b2db0 
+--More--(25/100)
+0100| 0xffffd340 --> 0xffffd378 --> 0x0 
+0104| 0xffffd344 --> 0xf7fedf60 (pop    edx)
+0108| 0xffffd348 --> 0xf7e5699b (<fflush+11>:	add    edi,0x155665)
+0112| 0xffffd34c --> 0x56557000 --> 0x1eec 
+0116| 0xffffd350 --> 0x1 
+0120| 0xffffd354 --> 0xfac000 
+0124| 0xffffd358 --> 0x1 
+0128| 0xffffd35c --> 0x64 ('d')
+0132| 0xffffd360 --> 0xf7facd60 --> 0xfbad2a84 
+0136| 0xffffd364 --> 0x56557000 --> 0x1eec 
+0140| 0xffffd368 --> 0xffffd378 --> 0x0 
+0144| 0xffffd36c --> 0x565556b5 (<main+69>:	mov    eax,0x0)
+0148| 0xffffd370 --> 0xffffd390 --> 0x1 
+0152| 0xffffd374 --> 0x0 
+0156| 0xffffd378 --> 0x0 
+0160| 0xffffd37c --> 0xf7e11276 (<__libc_start_main+246>:	add    esp,0x10)
+0164| 0xffffd380 --> 0x1 
+0168| 0xffffd384 --> 0xf7fac000 --> 0x1b2db0 
+0172| 0xffffd388 --> 0x0 
+0176| 0xffffd38c --> 0xf7e11276 (<__libc_start_main+246>:	add    esp,0x10)
+0180| 0xffffd390 --> 0x1 
+0184| 0xffffd394 --> 0xffffd424 --> 0xffffd5ac ("/media/sf_BrainBox/GoogleDrive/SCONCTF/format_string/format_string")
+
+
+
+
+0184| 0xffffd394 --> 0xffffd424 --> 0xffffd5ac 
+
+
+
+
+
+
+
+
+spectrum
+
+
+
+
+
+
+Puts: 0xf7583830
+func: 0x565b76c4
+stack:0xfff8ad13
+[*] Process './format_string' stopped with exit code 0
+63.f76d75a0.565b76d0.25000001.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.78252e78.2e78252e.252e7825.6d0078.1.64.f76d7d60.565b9000Having fun?
+
+
+
+
+objdump -d ./format_string | grep "<do_the_format>:"
+
+
+
+gdb-peda$ p system
+$1 = {<text variable, no debug info>} 0xf7e337f0 <system>
+gdb-peda$ p libc_start
+No symbol table is loaded.  Use the "file" command.
+gdb-peda$ p __libc_start_main
+$2 = {<text variable, no debug info>} 0xf7e11180 <__libc_start_main>
+
