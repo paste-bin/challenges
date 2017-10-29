@@ -1,0 +1,11 @@
+break handle
+break *0x555555554fa0
+  commands
+    silent
+    set $rax = 0
+    return
+    continue
+  end
+
+
+

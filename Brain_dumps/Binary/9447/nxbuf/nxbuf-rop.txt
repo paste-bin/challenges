@@ -1,0 +1,131 @@
+0x804855c: ret
+0x80484bc: repz ret
+0x804846e: ret 0xeac1
+0x8048458: leave; ret
+0x80485bf: pop ebp; ret
+0x80486ec: inc ecx; ret
+0x804837d: pop ebx; ret
+0x80485cf: nop; repz ret
+0x8048457: ror cl,1; ret
+0x8048494: ror cl,cl; ret
+0x804855a: add cl,cl; ret
+0x80484bb: leave; repz ret
+0x8048421: sbb al,0x24; ret
+0x80486eb: adc al,0x41; ret
+0x8048420: mov ebx,[esp]; ret
+0x80485ce: nop; nop; repz ret
+0x8048456: call eax; leave; ret
+0x8048493: call edx; leave; ret
+0x80484ba: add ecx,ecx; repz ret
+0x80485be: pop edi; pop ebp; ret
+0x8048455: or bh,bh; ror cl,1; ret
+0x804841f: nop; mov ebx,[esp]; ret
+0x80485cd: nop; nop; nop; repz ret
+0x8048556: mov eax,0x0; leave; ret
+0x8048361: mov ebx,0x81000000; ret
+0x8048492: or bh,bh; ror cl,cl; ret
+0x8048559: add [eax],al; leave; ret
+0x804837a: add esp,0x8; pop ebx; ret
+0x80486ea: push cs; adc al,0x41; ret
+0x8048439: or [ebx+0x17706f8],al; ret
+0x804837b: les ecx,[eax]; pop ebx; ret
+0x80484b9: or [ecx],al; leave; repz ret
+0x80485cc: nop; nop; nop; nop; repz ret
+0x8048558: add [eax],al; add cl,cl; ret
+0x804841e: xchg ax,ax; mov ebx,[esp]; ret
+0x80485bd: pop esi; pop edi; pop ebp; ret
+0x80484b7: mov al,ds:0xc9010804; repz ret
+0x8048454: add al,0x8; call eax; leave; ret
+0x8048453: mov al,ds:0xd0ff0804; leave; ret
+0x8048491: add al,0x8; call edx; leave; ret
+0x8048490: mov al,ds:0xd2ff0804; leave; ret
+0x804835f: or al,ch; mov ebx,0x81000000; ret
+0x80484b8: add al,0x8; add ecx,ecx; repz ret
+0x80485cb: nop; nop; nop; nop; nop; repz ret
+0x80486e8: add cl,[eax+0xe]; adc al,0x41; ret
+0x80486e9: dec eax; push cs; adc al,0x41; ret
+0x804841d: nop; xchg ax,ax; mov ebx,[esp]; ret
+0x80484b4: mov ds:0x804a044,0x1; leave; repz ret
+0x8048557: add [eax],al; add [eax],al; leave; ret
+0x8048378: add [eax],al; add esp,0x8; pop ebx; ret
+0x80485bc: pop ebx; pop esi; pop edi; pop ebp; ret
+0x80484b6: inc esp; mov al,ds:0xc9010804; repz ret
+0x80484b5: add eax,0x804a044; add ecx,ecx; repz ret
+0x80485dd: add ebx,0x1a23; add esp,0x8; pop ebx; ret
+0x804844f: mov [esp],0x804a02c; call eax; leave; ret
+0x804848c: mov [esp],0x804a02c; call edx; leave; ret
+0x8048476: jne 0x8048479 <register_tm_clones+25>; ret
+0x804841c: xchg ax,ax; xchg ax,ax; mov ebx,[esp]; ret
+0x804843d: ja 0x8048440 <deregister_tm_clones+16>; ret
+0x80485bb: sbb al,0x5b; pop esi; pop edi; pop ebp; ret
+0x804835e: in al,dx; or al,ch; mov ebx,0x81000000; ret
+0x80485b8: fild [ebx+0x5e5b1cc4]; pop edi; pop ebp; ret
+0x8048451: and al,0x2c; mov al,ds:0xd0ff0804; leave; ret
+0x8048452: sub al,0xa0; add al,0x8; call eax; leave; ret
+0x804848e: and al,0x2c; mov al,ds:0xd2ff0804; leave; ret
+0x804848f: sub al,0xa0; add al,0x8; call edx; leave; ret
+0x8048475: clc; jne 0x8048479 <register_tm_clones+25>; ret
+0x804841b: nop; xchg ax,ax; xchg ax,ax; mov ebx,[esp]; ret
+0x80486e3: add ds:0x2300e4e,0x48; push cs; adc al,0x41; ret
+0x80486e7: xor [edx],al; dec eax; push cs; adc al,0x41; ret
+0x80484b3: inc esi; add eax,0x804a044; add ecx,ecx; repz ret
+0x80485ba: les ebx,[ebx+ebx*2]; pop esi; pop edi; pop ebp; ret
+0x804843c: push es; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x8048551: call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x80485b9: add esp,0x1c; pop ebx; pop esi; pop edi; pop ebp; ret
+0x8048474: sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret
+0x80486e4: add eax,0x2300e4e; dec eax; push cs; adc al,0x41; ret
+0x804848a: and al,0x4; mov [esp],0x804a02c; call edx; leave; ret
+0x804841a: xchg ax,ax; xchg ax,ax; xchg ax,ax; mov ebx,[esp]; ret
+0x80485df: and ebx,[edx]; add [eax],al; add esp,0x8; pop ebx; ret
+0x804844c: sub esp,0x18; mov [esp],0x804a02c; call eax; leave; ret
+0x804843a: cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x804843b: clc; push es; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x80486e6: push cs; xor [edx],al; dec eax; push cs; adc al,0x41; ret
+0x8048473: rcl cl,1; clc; jne 0x8048479 <register_tm_clones+25>; ret
+0x8048450: add al,0x24; sub al,0xa0; add al,0x8; call eax; leave; ret
+0x804848d: add al,0x24; sub al,0xa0; add al,0x8; call edx; leave; ret
+0x8048419: nop; xchg ax,ax; xchg ax,ax; xchg ax,ax; mov ebx,[esp]; ret
+0x8048488: mov [esp+0x4],eax; mov [esp],0x804a02c; call edx; leave; ret
+0x8048375: call 0x80483c0 <__gmon_start__@plt>; add esp,0x8; pop ebx; ret
+0x8048489: inc esp; and al,0x4; mov [esp],0x804a02c; call edx; leave; ret
+0x804835b: add [ebx-0x7d],dl; in al,dx; or al,ch; mov ebx,0x81000000; ret
+0x804854f: add al,0x8; call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x80486e2: adc al,0x83; add eax,0x2300e4e; dec eax; push cs; adc al,0x41; ret
+0x8048472: add eax,edx; sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret
+0x8048418: xchg ax,ax; xchg ax,ax; xchg ax,ax; xchg ax,ax; mov ebx,[esp]; ret
+0x8048438: add al,0x8; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x804844a: mov ebp,esp; sub esp,0x18; mov [esp],0x804a02c; call eax; leave; ret
+0x804854e: xchg [eax+ecx*1],al; call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x80486dd: adc [esi+0x140e4104],al; add ds:0x2300e4e,0x48; push cs; adc al,0x41; ret
+0x804854a: mov [esp],0x804862b; call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x8048485: sub esp,0x18; mov [esp+0x4],eax; mov [esp],0x804a02c; call edx; leave; ret
+0x8048437: mov al,ds:0xf8830804; push es; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x8048471: pop ds; add eax,edx; sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret
+0x8048435: sub eax,0x804a02c; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x8048434: or ds:0x804a02c,ch; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x80484af: call 0x8048430 <deregister_tm_clones>; mov ds:0x804a044,0x1; leave; repz ret
+0x804846f: shr edx,0x1f; add eax,edx; sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret
+0x80485d8: call 0x8048420 <__x86.get_pc_thunk.bx>; add ebx,0x1a23; add esp,0x8; pop ebx; ret
+0x8048436: sub al,0xa0; add al,0x8; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x80486dc: push cs; adc [esi+0x140e4104],al; add ds:0x2300e4e,0x48; push cs; adc al,0x41; ret
+0x8048548: and al,0x4; mov [esp],0x804862b; call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x804854c: and al,0x2b; xchg [eax+ecx*1],al; call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x8048373: je 0x804837a <_init+30>; call 0x80483c0 <__gmon_start__@plt>; add esp,0x8; pop ebx; ret
+0x8048433: add al,0x8; sub eax,0x804a02c; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x80484ac: sub esp,0x8; call 0x8048430 <deregister_tm_clones>; mov ds:0x804a044,0x1; leave; repz ret
+0x804846c: add cl,[ecx+0x1feac1c2]; add eax,edx; sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret
+0x8048546: mov [esp+0x4],eax; mov [esp],0x804862b; call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x8048545: adc eax,0x4244489; mov [esp],0x804862b; call 0x80483a0 <printf@plt>; mov eax,0x0; leave; ret
+0x80486da: add eax,[ebx+0xe]; adc [esi+0x140e4104],al; add ds:0x2300e4e,0x48; push cs; adc al,0x41; ret
+0x804846d: mov edx,eax; shr edx,0x1f; add eax,edx; sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret
+0x80485d5: sub esp,0x8; call 0x8048420 <__x86.get_pc_thunk.bx>; add ebx,0x1a23; add esp,0x8; pop ebx; ret
+0x8048430: mov eax,0x804a02f; sub eax,0x804a02c; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x804846b: clc; add cl,[ecx+0x1feac1c2]; add eax,edx; sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret
+0x8048432: mov al,ds:0x2c2d0804; mov al,ds:0xf8830804; push es; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x804842f: nop; mov eax,0x804a02f; sub eax,0x804a02c; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x8048371: test eax,eax; je 0x804837a <_init+30>; call 0x80483c0 <__gmon_start__@plt>; add esp,0x8; pop ebx; ret
+0x8048431: das; mov al,ds:0x2c2d0804; mov al,ds:0xf8830804; push es; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x80484aa: mov ebp,esp; sub esp,0x8; call 0x8048430 <deregister_tm_clones>; mov ds:0x804a044,0x1; leave; repz ret
+0x804842e: xchg ax,ax; mov eax,0x804a02f; sub eax,0x804a02c; cmp eax,0x6; ja 0x8048440 <deregister_tm_clones+16>; ret
+0x8048467: mov al,ds:0xf8c10804; add cl,[ecx+0x1feac1c2]; add eax,edx; sar eax,1; jne 0x8048479 <register_tm_clones+25>; ret

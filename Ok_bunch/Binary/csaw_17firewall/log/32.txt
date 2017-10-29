@@ -1,0 +1,2 @@
+There are too many terminal sessions open.  Subsystem for UNIX-based Applications is unable to open additional terminal sessions.
+Unable to start process C:\Users\Administrator\Desktop\firewall\firewall.exe

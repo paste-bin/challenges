@@ -1,0 +1,70 @@
+[m   dep:02 => 0x80484fe <main+17>:	mov    DWORD PTR [esp+0x4],0x0[0m
+[m          |-- DWORD PTR [esp+0x4]: 0x0 [0m
+[m   dep:02 => 0x8048506 <main+25>:	mov    DWORD PTR [esp],eax[0m
+[m          |-- DWORD PTR [esp]: 0x0 [0m
+[m          |-- eax: [;34m0xb7fb6ac0[0m --> 0xfbad2084 [0m
+[m   dep:02 => 0x8048509 <main+28>:	call   0x8048390 <setbuf@plt>[0m
+[m          |-- arg[0]: [;34m0xb7fb6ac0[0m --> 0xfbad2084 [0m
+[m          |-- arg[1]: 0x0 [0m
+[m    dep:03 => 0x8048390 <setbuf@plt>:	jmp    DWORD PTR ds:0x804a00c[0m
+[m    dep:03 => 0x8048396 <setbuf@plt+6>:	push   0x0[0m
+[m    dep:03 => 0x804839b <setbuf@plt+11>:	jmp    0x8048380[0m
+[m    dep:03 => 0x8048380:	push   DWORD PTR ds:0x804a004[0m
+[m    dep:03 => 0x8048386:	jmp    DWORD PTR ds:0x804a008[0m
+[m   dep:02 => 0x804850e <main+33>:	mov    DWORD PTR [esp],0x80485f0[0m
+[m          |-- DWORD PTR [esp]: [;34m0xb7fb6ac0[0m --> 0xfbad2084 [0m
+[m   dep:02 => 0x8048515 <main+40>:	call   0x80483b0 <puts@plt>[0m
+[m          |-- arg[0]: [;32m0x80485f0[0m (">> well done, but this one is trickier! <<")[0m
+[m    dep:03 => 0x80483b0 <puts@plt>:	jmp    DWORD PTR ds:0x804a014[0m
+[m    dep:03 => 0x80483b6 <puts@plt+6>:	push   0x10[0m
+[m    dep:03 => 0x80483bb <puts@plt+11>:	jmp    0x8048380[0m
+[m    dep:03 => 0x8048380:	push   DWORD PTR ds:0x804a004[0m
+[m    dep:03 => 0x8048386:	jmp    DWORD PTR ds:0x804a008[0m
+[m   dep:02 => 0x804851a <main+45>:	lea    eax,[esp+0x15][0m
+[m          |-- eax: 0x2b ('+')[0m
+[m          |-- [esp+0x15]: 0x0 [0m
+[m   dep:02 => 0x804851e <main+49>:	mov    DWORD PTR [esp+0x4],eax[0m
+[m          |-- DWORD PTR [esp+0x4]: 0x0 [0m
+[m          |-- eax: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m   dep:02 => 0x8048522 <main+53>:	mov    DWORD PTR [esp],0x804861b[0m
+[m          |-- DWORD PTR [esp]: [;32m0x80485f0[0m (">> well done, but this one is trickier! <<")[0m
+[m   dep:02 => 0x8048529 <main+60>:	call   0x80483a0 <printf@plt>[0m
+[m          |-- arg[0]: [;32m0x804861b[0m ("bufaddr: %p\n")[0m
+[m          |-- arg[1]: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m    dep:03 => 0x80483a0 <printf@plt>:	jmp    DWORD PTR ds:0x804a010[0m
+[m    dep:03 => 0x80483a6 <printf@plt+6>:	push   0x8[0m
+[m    dep:03 => 0x80483ab <printf@plt+11>:	jmp    0x8048380[0m
+[m    dep:03 => 0x8048380:	push   DWORD PTR ds:0x804a004[0m
+[m    dep:03 => 0x8048386:	jmp    DWORD PTR ds:0x804a008[0m
+[m   dep:02 => 0x804852e <main+65>:	lea    eax,[esp+0x15][0m
+[m          |-- eax: 0x14 [0m
+[m          |-- [esp+0x15]: 0x0 [0m
+[m   dep:02 => 0x8048532 <main+69>:	mov    DWORD PTR [esp+0x4],eax[0m
+[m          |-- DWORD PTR [esp+0x4]: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m          |-- eax: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m   dep:02 => 0x8048536 <main+73>:	mov    DWORD PTR [esp],0x8048628[0m
+[m          |-- DWORD PTR [esp]: [;32m0x804861b[0m ("bufaddr: %p\n")[0m
+[m   dep:02 => 0x804853d <main+80>:	call   0x80483e0 <__isoc99_scanf@plt>[0m
+[m          |-- arg[0]: [;32m0x8048628[0m --> 0x62007325 ('%s')[0m
+[m          |-- arg[1]: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m    dep:03 => 0x80483e0 <__isoc99_scanf@plt>:	jmp    DWORD PTR ds:0x804a020[0m
+[m    dep:03 => 0x80483e6 <__isoc99_scanf@plt+6>:	push   0x28[0m
+[m    dep:03 => 0x80483eb <__isoc99_scanf@plt+11>:	jmp    0x8048380[0m
+[m    dep:03 => 0x8048380:	push   DWORD PTR ds:0x804a004[0m
+[m    dep:03 => 0x8048386:	jmp    DWORD PTR ds:0x804a008[0m
+[m   dep:02 => 0x8048542 <main+85>:	lea    eax,[esp+0x15][0m
+[m          |-- eax: 0x1 [0m
+[m          |-- [esp+0x15]: 0x41414141 ('AAAA')[0m
+[m   dep:02 => 0x8048546 <main+89>:	mov    DWORD PTR [esp+0x4],eax[0m
+[m          |-- DWORD PTR [esp+0x4]: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m          |-- eax: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m   dep:02 => 0x804854a <main+93>:	mov    DWORD PTR [esp],0x804862b[0m
+[m          |-- DWORD PTR [esp]: [;32m0x8048628[0m --> 0x62007325 ('%s')[0m
+[m   dep:02 => 0x8048551 <main+100>:	call   0x80483a0 <printf@plt>[0m
+[m          |-- arg[0]: [;32m0x804862b[0m ("buf: '%s'\n")[0m
+[m          |-- arg[1]: [;34m0xbfffcea5[0m --> 0x0 [0m
+[m    dep:03 => 0x80483a0 <printf@plt>:	jmp    DWORD PTR ds:0x804a010[0m
+[m   dep:02 => 0x8048556 <main+105>:	mov    eax,0x0[0m
+[m          |-- eax: 0x24f3 [0m
+[m   dep:02 => 0x804855b <main+110>:	leave[0m
+[m   dep:02 => 0x804855c <main+111>:	ret[0m

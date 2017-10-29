@@ -1,0 +1,7 @@
+Guide:
+
+The idea of this challenge is that we have a service that signs messages using
+a MAC with a post-pended key.
+
+The hash will be the first 40 bits of md5
+

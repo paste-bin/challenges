@@ -1,0 +1,14 @@
+
+
+We set up a git repo for each team with vanila ecb thing
+
+they then commit to that and at halftime we pull their changes onto the box
+
+you get to send a thought of the day and it sends you back the cipher 
+
+flip admin number
+decode a message
+encode a message
+
+
+

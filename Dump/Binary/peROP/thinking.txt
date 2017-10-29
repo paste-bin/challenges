@@ -1,0 +1,18 @@
+thinking.txt
+
+
+
+
+  addRule(0);          // sys_read
+  addRule(2u);         // sys_open
+  addRule(3u);         // sys_close
+  addRule(4u);         // sys_stat
+  addRule(5u);         // sys_fstat
+  addRule(6u);         // sys_lstat
+  addRule(7u);         // sys_poll
+  addRule(8u);         // sys_lseek
+  addRule(9u);         // sys_mmap
+  addRule(10u);        // sys_munmap
+  addRule(11u);        // sys_mprotect
+  addRule(12u);        // sys_brk
+  addRule(59u);        // sys_execve

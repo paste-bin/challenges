@@ -1,0 +1,114 @@
+0x555555555a8f: ret
+0x555555555230: repz ret
+0x5555555553b3: leave; ret
+0x555555555aa3: pop rdi; ret
+0x5555555551a0: pop rbp; ret
+0x555555555835: dec ecx; ret
+0x555555555aa2: pop r15; ret
+0x555555555aaf: add bl,dh; ret
+0x5555555553b2: nop; leave; ret
+0x55555555522f: add ebx,esi; ret
+0x555555554e9d: add rsp,0x8; ret
+0x555555554e9e: add esp,0x8; ret
+0x555555555a8c: fmul [rax-0x7d]; ret
+0x55555555540a: pop rbx; pop rbp; ret
+0x555555555aa0: pop r14; pop r15; ret
+0x555555555833: idiv bh; dec ecx; ret
+0x555555555aa1: pop rsi; pop r15; ret
+0x555555555409: sbb [rbx+0x5d],bl; ret
+0x55555555522e: add [rcx],al; repz ret
+0x555555555aae: add [rax],al; repz ret
+0x55555555519e: add [rax],al; pop rbp; ret
+0x555555555832: cli; idiv bh; dec ecx; ret
+0x55555555519d: add [rax],r8b; pop rbp; ret
+0x555555555aad: add [rax],al; add bl,dh; ret
+0x555555555ab5: sub esp,0x8; add rsp,0x8; ret
+0x555555555aa8: nop [rax+rax*1+0x0]; repz ret
+0x555555555ab4: sub rsp,0x8; add rsp,0x8; ret
+0x555555555a9e: pop r13; pop r14; pop r15; ret
+0x555555554e9b: add [rax],al; add rsp,0x8; ret
+0x55555555522d: and [rax],al; add ebx,esi; ret
+0x555555555a9f: pop rbp; pop r14; pop r15; ret
+0x555555555a32: add eax,0xfff4f8e8; dec ecx; ret
+0x555555555aa7: nop cs:[rax+rax*1+0x0]; repz ret
+0x5555555559b5: add eax,0xfff575e8; dec ecx; ret
+0x55555555519b: nop [rax+rax*1+0x0]; pop rbp; ret
+0x55555555522a: add eax,0x201f38; add ebx,esi; ret
+0x555555555406: add rsp,0x18; pop rbx; pop rbp; ret
+0x555555555407: add esp,0x18; pop rbx; pop rbp; ret
+0x555555555aac: add [rax],al; add [rax],al; repz ret
+0x555555554e98: call 0x555555555130; add rsp,0x8; ret
+0x555555555aa5: nop; nop cs:[rax+rax*1+0x0]; repz ret
+0x555555555a9d: pop rsp; pop r13; pop r14; pop r15; ret
+0x555555555a9c: pop r12; pop r13; pop r14; pop r15; ret
+0x5555555551ec: add [rax],al; add [rax],al; pop rbp; ret
+0x555555555198: jmp rax; nop [rax+rax*1+0x0]; pop rbp; ret
+0x555555555405: call 0x55556e19d752; pop rbx; pop rbp; ret
+0x555555555aab: add [rax],al; add [rax],al; add bl,dh; ret
+0x555555555ab2: add [rax],al; sub rsp,0x8; add rsp,0x8; ret
+0x55555555522b: cmp [rdi],bl; and [rax],al; add ebx,esi; ret
+0x5555555553ad: call 0x555555554f50 <errx@plt>; nop; leave; ret
+0x555555555a9b: pop rbp; pop r12; pop r13; pop r14; pop r15; ret
+0x555555555404: rex.RB call 0x55556e19d752; pop rbx; pop rbp; ret
+0x555555555aaa: test [rax],al; add [rax],al; add [rax],al; repz ret
+0x555555555197: pop rbp; jmp rax; nop [rax+rax*1+0x0]; pop rbp; ret
+0x555555555227: call [rbp-0x3a]; add eax,0x201f38; add ebx,esi; ret
+0x5555555551e3: or al,0x5d; jmp rax; nop [rax+rax*1+0x0]; pop rbp; ret
+0x555555555831: call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555403: mov eax,[rbp-0x18]; add rsp,0x18; pop rbx; pop rbp; ret
+0x555555555402: mov rax,[rbp-0x18]; add rsp,0x18; pop rbx; pop rbp; ret
+0x5555555551ea: test [rax],al; add [rax],al; add [rax],al; pop rbp; ret
+0x555555555a99: or [rbx+0x5d],bl; pop r12; pop r13; pop r14; pop r15; ret
+0x5555555553a8: mov eax,0x0; call 0x555555554f50 <errx@plt>; nop; leave; ret
+0x5555555553ab: add [rax],al; call 0x555555554f50 <errx@plt>; nop; leave; ret
+0x555555555401: int 0x48; mov eax,[rbp-0x18]; add rsp,0x18; pop rbx; pop rbp; ret
+0x555555555229: mov [rip+0x201f38],0x1 # 0x555555757168 <completed.7585>; repz ret
+0x555555554e96: je 0x555555554e9d <_init+21>; call 0x555555555130; add rsp,0x8; ret
+0x5555555551e6: loopne 0x55555555524e <frame_dummy+14>; nop [rax+rax*1+0x0]; pop rbp; ret
+0x555555555228: pop rbp; mov [rip+0x201f38],0x1 # 0x555555757168 <completed.7585>; repz ret
+0x5555555553a9: add [rax],al; add [rax],al; call 0x555555554f50 <errx@plt>; nop; leave; ret
+0x5555555553a2: add [rdi-0x1],bh; mov eax,0x0; call 0x555555554f50 <errx@plt>; nop; leave; ret
+0x5555555553a3: mov edi,0xffffffff; mov eax,0x0; call 0x555555554f50 <errx@plt>; nop; leave; ret
+0x555555554e93: test rax,rax; je 0x555555554e9d <_init+21>; call 0x555555555130; add rsp,0x8; ret
+0x555555554e94: test eax,eax; je 0x555555554e9d <_init+21>; call 0x555555555130; add rsp,0x8; ret
+0x555555555199: loopne 0x555555555201 <__do_global_dtors_aux+1>; nop [rax+rax*1+0x0]; pop rbp; ret
+0x55555555582c: jmp 0x555555555723 <main+790>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559b4: je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555400: jle 0x5555555553cf <rand64+26>; mov rax,[rbp-0x18]; add rsp,0x18; pop rbx; pop rbp; ret
+0x555555555a31: je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x55555555582b: hlt; jmp 0x555555555723 <main+790>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555551e2: je 0x5555555551f0 <register_tm_clones+64>; pop rbp; jmp rax; nop [rax+rax*1+0x0]; pop rbp; ret
+0x555555554e91: and [rax],al; test rax,rax; je 0x555555554e9d <_init+21>; call 0x555555555130; add rsp,0x8; ret
+0x555555555195: je 0x5555555551a0 <deregister_tm_clones+48>; pop rbp; jmp rax; nop [rax+rax*1+0x0]; pop rbp; ret
+0x555555554e8e: add eax,0x202145; test rax,rax; je 0x555555554e9d <_init+21>; call 0x555555555130; add rsp,0x8; ret
+0x5555555559af: and eax,0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559b2: add [rax],al; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555196: or [rbp-0x1],ebx; loopne 0x555555555201 <__do_global_dtors_aux+1>; nop [rax+rax*1+0x0]; pop rbp; ret
+0x555555555829: add bl,ch; hlt; jmp 0x555555555723 <main+790>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a2c: and eax,0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a2f: add [rax],al; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559ad: xor eax,ds:0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559ac: xor rax,ds:0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559ab: xor rax,fs:0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a29: xor rax,ds:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a28: xor rax,fs:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a2a: xor eax,ds:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559aa: clc; xor rax,fs:0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a27: clc; xor rax,fs:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559b0: sub [rax],al; add [rax],al; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559a9: rex.RB clc; xor rax,fs:0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a2d: sub [rax],al; add [rax],al; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x55555555582a: jmp 0x555555555820 <main+1043>; jmp 0x555555555723 <main+790>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a26: rex.RB clc; xor rax,fs:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555223: call 0x555555555170 <deregister_tm_clones>; pop rbp; mov [rip+0x201f38],0x1 # 0x555555757168 <completed.7585>; repz ret
+0x555555554e8d: mov eax,[rip+0x202145] # 0x555555756fd8; test rax,rax; je 0x555555554e9d <_init+21>; call 0x555555555130; add rsp,0x8; ret
+0x555555554e8c: mov rax,[rip+0x202145] # 0x555555756fd8; test rax,rax; je 0x555555554e9d <_init+21>; call 0x555555555130; add rsp,0x8; ret
+0x5555555559a8: mov eax,[rbp-0x8]; xor rax,fs:0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x5555555559a7: mov rax,[rbp-0x8]; xor rax,fs:0x28; je 0x5555555559bb <handle+387>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a25: mov eax,[rbp-0x8]; xor rax,fs:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a24: mov rax,[rbp-0x8]; xor rax,fs:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555a22: call [rax-0x7ba74b8]; xor rax,fs:0x28; je 0x555555555a38 <do_srand+123>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x555555555828: add [rax],al; jmp 0x555555555820 <main+1043>; jmp 0x555555555723 <main+790>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x55555555521e: call 0x555555555138; call 0x555555555170 <deregister_tm_clones>; pop rbp; mov [rip+0x201f38],0x1 # 0x555555757168 <completed.7585>; repz ret
+0x555555555825: call 0x555555555838 <handle>; jmp 0x555555555820 <main+1043>; jmp 0x555555555723 <main+790>; call 0x555555554f30 <__stack_chk_fail@plt>; leave; ret
+0x55555555521c: and [rax],al; call 0x555555555138; call 0x555555555170 <deregister_tm_clones>; pop rbp; mov [rip+0x201f38],0x1 # 0x555555757168 <completed.7585>; repz ret

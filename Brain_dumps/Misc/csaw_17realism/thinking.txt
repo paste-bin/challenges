@@ -1,0 +1,156 @@
+thinking.txt
+
+
+qemu-system-i386 -drive format=raw,file=main.bin
+
+
+
+
+0x7c00
+
+
+
+0x1234 is where the data is read in
+
+
+0x800005c
+
+
+
+
+IRSB {
+   t0:I32   t1:I32   t2:V128   t3:V128   t4:I64   t5:I64   t6:I32   t7:I32
+   t8:I32   t9:I32   t10:I32   t11:V128   t12:V128   t13:V128   t14:I64   t15:I64
+   t16:I64   t17:I64   t18:I64   t19:I64   t20:I32   t21:I32   t22:I32   t23:I32
+   t24:I32   t25:I32   t26:I8   t27:I1   t28:I16   t29:I16   t30:I16   t31:I16
+   t32:I16   t33:I16   t34:I16   t35:I32   t36:I32   t37:I32   t38:I32   
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   IR-NoOp
+   ------ IMark(0x800000C, 7, 0) ------
+   t0 = 0x1238:I32
+   if (CmpNE32(And32(t0,0xF:I32),0x0:I32)) { PUT(68) = 0x800000C:I32; exit-SigSEGV } 
+   PUT(160) = LDle:V128(t0)
+   PUT(68) = 0x8000013:I32
+   ------ IMark(0x8000013, 7, 0) ------
+   t1 = 0x7C00:I32
+   if (CmpNE32(And32(t1,0xF:I32),0x0:I32)) { PUT(68) = 0x8000013:I32; exit-SigSEGV } 
+   PUT(240) = LDle:V128(t1)
+   PUT(68) = 0x800001A:I32
+   ------ IMark(0x800001A, 5, 0) ------
+   t2 = GET:V128(160)
+   t4 = V128HIto64(t2)
+   t5 = V128to64(t2)
+   t6 = 64to32(t5)
+   t7 = 64HIto32(t5)
+   t8 = 64to32(t4)
+   t9 = 64HIto32(t4)
+   t3 = 64HLtoV128(32HLto64(t6,t7),32HLto64(t9,t8))
+   PUT(160) = t3
+   PUT(68) = 0x800001F:I32
+   ------ IMark(0x800001F, 4, 0) ------
+   PUT(32) = 0x8:I16
+   PUT(68) = 0x8000023:I32
+   ------ IMark(0x8000023, 3, 0) ------
+   PUT(192) = GET:V128(160)
+   PUT(68) = 0x8000026:I32
+   ------ IMark(0x8000026, 6, 0) ------
+   t10 = Add16(GET:I16(24),0x7D90:I16)
+   PUT(192) = AndV128(GET:V128(192),LDle:V128(t10))
+   PUT(68) = 0x800002C:I32
+   ------ IMark(0x800002C, 4, 0) ------
+   t11 = GET:V128(192)
+   t12 = GET:V128(240)
+   t14 = V128HIto64(t11)
+   t15 = V128to64(t11)
+   t16 = V128HIto64(t12)
+   t17 = V128to64(t12)
+   t18 = x86g_calculate_mmx_psadbw{0x7f634c4d68d6}(t14,t16):I64
+   t19 = x86g_calculate_mmx_psadbw{0x7f634c4d68d6}(t15,t17):I64
+   t13 = 64HLtoV128(t18,t19)
+   PUT(240) = t13
+   PUT(68) = 0x8000030:I32
+   ------ IMark(0x8000030, 7, 0) ------
+   t20 = 0x1268:I32
+   if (CmpNE32(And32(t20,0xF:I32),0x0:I32)) { PUT(68) = 0x8000030:I32; exit-SigSEGV } 
+   STle(t20) = GET:V128(240)
+   PUT(68) = 0x8000037:I32
+   ------ IMark(0x8000037, 4, 0) ------
+   PUT(36) = 0x1268:I16
+   PUT(68) = 0x800003B:I32
+   ------ IMark(0x800003B, 3, 0) ------
+   t21 = GET:I32(36)
+   t26 = And8(0x10:I8,0x1F:I8)
+   t23 = t21
+   t24 = Shl32(t23,t26)
+   t25 = Shl32(t23,And8(Sub8(t26,0x1:I8),0x1F:I8))
+   t27 = CmpNE8(t26,0x0:I8)
+   PUT(40) = ITE(t27,0x18:I32,GET:I32(40))
+   PUT(44) = ITE(t27,t24,GET:I32(44))
+   PUT(48) = ITE(t27,t25,GET:I32(48))
+   PUT(52) = ITE(t27,0x0:I32,GET:I32(52))
+   t22 = t24
+   PUT(36) = t22
+   PUT(68) = 0x800003E:I32
+   ------ IMark(0x800003E, 4, 0) ------
+   PUT(36) = 0x1270:I16
+   PUT(68) = 0x8000042:I32
+   ------ IMark(0x8000042, 3, 0) ------
+   PUT(16) = GET:I16(32)
+   PUT(68) = 0x8000045:I32
+   ------ IMark(0x8000045, 2, 0) ------
+   t28 = Sub16(GET:I16(16),0x1:I16)
+   PUT(52) = x86g_calculate_eflags_c[rp=3][mcx=0x9]{0x7f634c4d22ba}(GET:I32(40),GET:I32(44),GET:I32(48),GET:I32(52)):I32
+   PUT(40) = 0x14:I32
+   PUT(44) = 16Uto32(t28)
+   PUT(48) = 0x0:I32
+   PUT(16) = t28
+   PUT(68) = 0x8000047:I32
+   ------ IMark(0x8000047, 3, 0) ------
+   t31 = GET:I16(16)
+   t30 = GET:I16(16)
+   t29 = Add16(t31,t30)
+   PUT(40) = 0x2:I32
+   PUT(44) = 16Uto32(t31)
+   PUT(48) = 16Uto32(t30)
+   PUT(52) = 0x0:I32
+   PUT(16) = t29
+   PUT(68) = 0x800004A:I32
+   ------ IMark(0x800004A, 3, 0) ------
+   t34 = GET:I16(16)
+   t33 = GET:I16(16)
+   t32 = Add16(t34,t33)
+   PUT(40) = 0x2:I32
+   PUT(44) = 16Uto32(t34)
+   PUT(48) = 16Uto32(t33)
+   PUT(52) = 0x0:I32
+   PUT(16) = t32
+   PUT(68) = 0x800004D:I32
+   ------ IMark(0x800004D, 6, 0) ------
+   t38 = Add32(GET:I32(16),0x7DA8:I32)
+   t37 = GET:I32(36)
+   t36 = LDle:I32(t38)
+   t35 = Sub32(t37,t36)
+   PUT(40) = 0x6:I32
+   PUT(44) = t37
+   PUT(48) = t36
+   PUT(52) = 0x0:I32
+   PUT(68) = 0x8000053:I32
+   ------ IMark(0x8000053, 2, 0) ------
+   if (32to1(x86g_calculate_condition[mcx=0x13]{0x7f634c4d235e}(0x4:I32,GET:I32(40),GET:I32(44),GET:I32(48),GET:I32(52)):I32)) { PUT(68) = 0x8000055:I32; exit-Boring } 
+   PUT(68) = 0x8000071:I32
+   PUT(68) = GET:I32(68); exit-Boring
+}
+ 

@@ -1,0 +1,2 @@
+ sudo apt-get install libpcap-dev libssl-dev
+gcc -Wall -o rev  pass.c -lssl -lcrypto --static

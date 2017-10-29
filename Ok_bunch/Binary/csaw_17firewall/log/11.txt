@@ -1,0 +1,86 @@
++----------------------------------------+
+|-------[ FIREWALL CONTROL PANEL ]-------|
++----------------------------------------+
+| ENTER SERVICE ACCESS TOKEN: | +-------------------------+
+| |- MENU                   |
+| +-------------------------+
+| | 1. add firewall rule    |
+| | 2. edit firewall rule   |
+| | 3. delete firewall rule |
+| | 4. print firewall rule  |
+| | 5. list firewall rules  |
+| | 6. check credentials    |
+| | 7. help                 |
+| | 8. quit                 |
+| +-------------------------+
+| MENU SELECTION: | CREATING FIREWALL RULE -
+| ENTER RULE NAME: | ENTER RULE PORT: | ENTER RULE TYPE: | SUCCESSFULLY CREATED FIREWALL RULE!
+| PRESS ENTER TO RETURN TO MENU | +-------------------------+
+| |- MENU                   |
+| +-------------------------+
+| | 1. add firewall rule    |
+| | 2. edit firewall rule   |
+| | 3. delete firewall rule |
+| | 4. print firewall rule  |
+| | 5. list firewall rules  |
+| | 6. check credentials    |
+| | 7. help                 |
+| | 8. quit                 |
+| +-------------------------+
+| MENU SELECTION: | CREATING FIREWALL RULE -
+| ENTER RULE NAME: | ENTER RULE PORT: | ENTER RULE TYPE: | SUCCESSFULLY CREATED FIREWALL RULE!
+| PRESS ENTER TO RETURN TO MENU | +-------------------------+
+| |- MENU                   |
+| +-------------------------+
+| | 1. add firewall rule    |
+| | 2. edit firewall rule   |
+| | 3. delete firewall rule |
+| | 4. print firewall rule  |
+| | 5. list firewall rules  |
+| | 6. check credentials    |
+| | 7. help                 |
+| | 8. quit                 |
+| +-------------------------+
+| MENU SELECTION: | PRINTING FIREWALL RULE -
+| ENTER RULE NUMBER TO PRINT: | FIREWALL RULE #4294967295
+| - Name: ñ&hñ&„ñ& ñ&¼ñ&Øñ&ôñ&name1
+| - Port: 294
+| - Type: ôñ&name1
+| PRESS ENTER TO RETURN TO MENU | +-------------------------+
+| |- MENU                   |
+| +-------------------------+
+| | 1. add firewall rule    |
+| | 2. edit firewall rule   |
+| | 3. delete firewall rule |
+| | 4. print firewall rule  |
+| | 5. list firewall rules  |
+| | 6. check credentials    |
+| | 7. help                 |
+| | 8. quit                 |
+| +-------------------------+
+| MENU SELECTION: | DELETING FIREWALL RULE -
+| ENTER RULE NUMBER TO DELETE: | FIREWALL RULE DELETED!
+| PRESS ENTER TO RETURN TO MENU | +-------------------------+
+| |- MENU                   |
+| +-------------------------+
+| | 1. add firewall rule    |
+| (null)
+| (null)
+| (null)
+| (null)
+| (null)
+| (null)
+| (null)
+| +-------------------------+
+| MENU SELECTION: | EDITING FIREWALL RULE -
+| ENTER RULE NUMBER TO EDIT: | ENTER RULE NAME: | ENTER RULE PORT: | ENTER RULE TYPE: | INVALID RULE TYPE! CANCELING CREATION...
+| PRESS ENTER TO RETURN TO MENU | +-------------------------+
+| |- MENU                   |
+| +-------------------------+
+| | 1. add firewall rule    |
+| (null)
+| (null)
+| (null)
+| (null)
+| (null)
+| (null)

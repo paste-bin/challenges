@@ -1,0 +1,11 @@
+nc pwn.chal.csaw.io 8000
+
+
+a-Warm Up-
+WOW:0x40060d
+>⏎             
+
+
+hmm 
+maybe I need to send that as a number?
+

@@ -1,0 +1,438 @@
+thinking.txt
+
+0x08049677
+
+
+
+
+
+0x0804a7d8  0x0804969d 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a7e8  0x080496d2 0x08049685 0x080496d2 0x080496d2  ................
+0x0804a7f8  0x080496b8 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a808  0x080496d2 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a818  0x080496d2 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a828  0x080496d2 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a838  0x080496d2 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a848  0x080496d2 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a858  0x0804969d 0x080496d2 0x080496d2 0x080496d2  ................
+0x0804a868  0x080496d2 0x08049685 0x080496d2 0x080496d2  ................
+0x0804a878  0x080496b8 0x696c6564 0x64656b6e 0x00000021  ....delinked!...
+0x0804a888  0x65537a69 0x72657672 0x61747320 0x64657472  izServer started
+0x0804a898  0x00000000 0x6c696146 0x74206465 0x6573206f  ....Failed to se
+0x0804a8a8  0x49532074 0x4c484347 0x61682044 0x656c646e  t SIGCHLD handle
+
+
+
+
+
+0x0804a7d8  0x0804969d     ................
+0x0804a7e8   0x08049685    ................
+0x0804a7f8  0x080496b8     ................
+0x0804a808       ................
+0x0804a818       ................
+0x0804a828       ................
+0x0804a838       ................
+0x0804a848       ................
+0x0804a858  0x0804969d     ................
+0x0804a868   0x08049685    ................
+0x0804a878  0x080496b8
+
+
+I N Q
+
+
+Hi. Welcome to Minesweeper. Please select an option:\n1) N (New Game)\n2) Initialize Game(I)\n3) Q (Quit)\n
+
+
+
+0x0804969d I 
+
+
+
+
+       ┌──< 0x080496b6      eb2d           jmp loc.080496e5            ;[2]
+
+
+
+
+  shit_mem_set((int)dest, 0, 10000);
+  for ( i = 0; ; ++i )
+  {
+    result = a4 * a4;
+    if ( a4 * a4 <= i )
+      break;
+    memcpy(dest, (const void *)(i * n + a2), n);
+    dest[n] = 10;
+    sub_8049AD3(fd, (int)dest, n + 1);
+  }
+  return result;
+}
+
+
+int found_mine(int fd, int a2, size_t n, int max_y){
+	int result = 0;
+	char dest[10000];
+	int i = 0;
+	while (i <= max_y * max_y) {
+	    result = max_y * max_y;
+	    memcpy(dest, (i * n + a2), n); // potential overflow
+	    dest[n] = 10;
+	    sub_8049AD3(fd, (int)dest, n + 1);
+	  }
+	return result;
+}
+
+
+
+
+ahh, another jumptable
+0x0804a034  0x0804904f 0x08049036 0x08049036 0x08049036  O...6...6...6...
+0x0804a044  0x08048b89 0x08048b70 0x08049036 0x08049036  ....p...6...6...
+0x0804a054  0x08049036 0x08049036 0x08049036 0x08049036  6...6...6...6...
+0x0804a064  0x08049036 0x08049036 0x08049036 0x08049036  6...6...6...6...
+0x0804a074  0x08049036 0x08049036 0x08049036 0x08049036  6...6...6...6...
+0x0804a084  0x08049036 0x08049036 0x08049036 0x08049036  6...6...6...6...
+0x0804a094  0x08049036 0x08049036 0x08049036 0x08049036  6...6...6...6...
+0x0804a0a4  0x08049036 0x08049036 0x08049036 0x08049036  6...6...6...6...
+0x0804a0b4  0x0804904f 0x08049036 0x08049036 0x08049036  O...6...6...6...
+0x0804a0c4  0x08048b89 0x08048b70 0x61656c50 0x65206573  ....p...Please e
+0x0804a0d4  0x7265746e 0x206e6920 0x20656874 0x656d6964  nter in the dime
+0x0804a0e4  0x6f69736e 0x6f20736e 0x68742066 0x6f622065  nsions of the bo
+0x0804a0f4  0x20647261 0x20756f79 0x6c756f77 0x696c2064  ard you would li
+
+
+
+
+                                                                                                                                │ eax = dword [local_18h]             │                                                                                                                            │ esp -= 8                                     │
+                                                   │     │     │     │     │     │                                              │ edx = [eax - 1]                     │                                                                                                                            │    ; 0x804a530                               │
+                                                   │     │     │     │     │     │                                              │ eax = dword [local_1ch]             │                                                                                                                            │    ; "Dimension being set is too large\n"    │
+                                                   │     │     │     │     │     │                                              │ eax -= 1                            │                                                                                                                            │ push str.Dimension_being_set_is_too_large_n  │
+                                                   │     │     │     │     │     │                                              │ eax *= edx                          │                                                                                                                            │ push dword [arg_8h]                          │
+                                                   │     │     │     │     │     │                                              │ esp -= 0xc                          │                                                                                                                            │ fcn.08049b3c ();[ga]                         │
+                                                   │     │     │     │     │     │                                              │ push eax                            │                                                                                                                            │ esp += 0x10                                  │
+                                                   │     │     │     │     │     │                                              │ sub.sbrk_87d ();[gg]                │                                                                                                                            │ eax = 0                                      │
+                                                   │     │     │     │     │     │                                              │ esp += 0x10                         │                                                                                                                            │ goto 0x8049592;[ge]                          │
+                                                   │     │     │     │     │     │                                              │ dword [local_14h] = eax             │                                                                                                                            └──────────────────────────────────────────────┘
+                                                   │     │     │     │     │     │                                              │ eax = dword [local_18h]             │                                                                                                                                v
+                                                   │     │     │     │     │     │                                              │ edx = [eax - 1]                     │                                                                                                                                │
+                                                   │     │     │     │     │     │                                              │ eax = dword [local_1ch]             │                                                                                                                                │
+                                                   │     │     │     │     │     │                                              │ eax -= 1                            │                                                                                                                                │
+                                                   │     │     │     │     │     │                                              │ eax *= edx                          │                                                                                                                                │
+                                                   │     │     │     │     │     │                                              │ var = eax - 0xfff                   │                                                                                                                                │
+                                                   │     │     │     │     │     │                                              │ if (var <= 0) goto 0x8049437;[gBb]  │                                                                                                                                │
+                                                   │     │     │     │     │     │                                              └─────────────────────────────────────┘                                                                                                                                │
+                                                   │     │     │     │     │     │                                                      f t                                                                                                                                                            │
+                                                   │     │     │     │     │     │                                                      │ │                                                                                                                                                            │
+                                                   │     │     │     │     │     │                                                      │ │                                                                                                                                                            └───────────────────┐
+                                                   │     │     │     │     │     │                                                      │ └────────────────────────────┐                                                                                                                                                   │
+                                                   │     │     │     │     │     │             ┌────────────────────────────────────────┘                              │                                                                                                                                                   │
+                                                   │     │     │     │     │     │             │                                                                       │                                                                                                                                                   │
+                                                   │     │     │     │     │     │     ┌────────────────────────────────────────────────┐                        ┌────────────────────────────────────────┐                                                                                                                │
+                                                   │     │     │     │     │     │     │  0x804941a ;[gBc]                              │                        │  0x8049437 ;[gBb]                      │                                                                                                                │
+                                                   │     │     │     │     │     │     │ esp -= 8                                       │                        │ eax = dword [local_18h]                │                                                                                                                │
+                                                   │     │     │     │     │     │     │    ; 0x804a554                                 │                        │ edx = [eax - 1]                        │                                                                                                                │
+                                                   │     │     │     │     │     │     │    ; "Cannot allocate such a large board\n"    │                        │ eax = dword [local_1ch]                │                                                                                                                │
+                                                   │     │     │     │     │     │     │ push str.Cannot_allocate_such_a_large_board_n  │                        │ eax -= 1                               │                                                                                                                │
+                                                   │     │     │     │     │     │     │ push dword [arg_8h]                            │                        │ eax *= edx                             │                                                                                                                │
+                                                   │     │     │     │     │     │     │ fcn.08049b3c ();[ga]                           │                        │ esp -= 4                               │                                                                                                                │
+                                                   │     │     │     │     │     │     │ esp += 0x10                                    │                        │ push eax                               │                                                                                                                │
+                                                   │     │     │     │     │     │     │ eax = 0                                        │                        │ push 0                                 │                                                                                                                │
+                                                   │     │     │     │     │     │     │ goto 0x8049592;[ge]                            │                        │ push dword [local_14h]                 │                                                                                                                │
+                                                   │     │     │     │     │     │     └────────────────────────────────────────────────┘                        │ sym.imp.memset ();[gBd]                │                                                                                                                │
+                                                   │     │     │     │     │     │         v                                                                     │ esp += 0x10                            │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ eax = dword [local_18h]                │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ edx = [eax - 1]                        │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ eax = dword [local_1ch]                │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ eax -= 1                               │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ edx *= eax                             │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │    ; [0x804bdbc:4]=0                   │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ eax = dword [obj.stderr]               │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ esp -= 4                               │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ push edx                               │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │    ; 0x804a578                         │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │    ; "Allocated buffer of size: %d"    │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ push str.Allocated_buffer_of_size:__d  │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ push eax                               │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ sym.imp.fprintf ();[gBe]               │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ esp += 0x10                            │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     │ goto 0x804949c;[gBf]                   │                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                     └────────────────────────────────────────┘                                                                                                                │
+                                                   │     │     │     │     │     │         │                                                                         v                                                                                                                                                     │
+                                                   │     │     │     │     │     │         │                                                                         │                                                                                                                                                     │
+                                                   │     │     │     │     │     │     ┌───┘                                                                         │                                                                                                                                                     │
+                                                   │     │     │     │     │     │     │         ┌───────────────────────────────────────────────────────────────────┘                                                                                                                                                     │
+                                                   │     │     │     │     │     │     │         ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+                                                   │     │     │     │     │     │     │         │                                                                                                                                                                                                                         │ │
+                                                   │     │     │     │     │     │     │     ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                           │ │
+                                                   │     │     │     │     │     │     │     │ [0x804949c] ;[gBf]                                                                                                                                                              │                                           │ │
+                                                   │     │     │     │     │     │     │     │      ; JMP XREF from 0x0804947d (sub.memcpy_55)                                                                                                                                 │                                           │ │
+                                                   │     │     │     │     │     │     │     │      ; JMP XREF from 0x0804958d (sub.memcpy_55)                                                                                                                                 │                                           │ │
+                                                   │     │     │     │     │     │     │     │ esp -= 8                                                                                                                                                                        │                                           │ │
+                                                   │     │     │     │     │     │     │     │    ; 0x804a5bc                                                                                                                                                                  │                                           │ │
+                                                   │     │     │     │     │     │     │     │    ; "Please send the string used to initialize the board. Please send X * Y bytes follow by a newlineHave atleast 1 mine placed in your board, marked by the character X\n"    │                                           │ │
+                                                   │     │     │     │     │     │     │     │ push str.Please_send_the_string_used_to_initialize_the_board._Please_send_X___Y_bytes_follow_by_a_newlineHave_atleast_1_mine_placed_in_your_board__marked_by_the_character_X_n  │                                           │ │
+                                                   │     │     │     │     │     │     │     │ push dword [arg_8h]                                                                                                                                                             │                                           │ │
+                                                   │     │     │     │     │     │     │     │ fcn.08049b3c ();[ga]                                                                                                                                                            │                                           │ │
+                                                   │     │     │     │     │     │     │     │ esp += 0x10                                                                                                                                                                     │                                           │ │
+                                                   │     │     │     │     │     │     │     │ eax = dword [local_18h]                                                                                                                                                         │                                           │ │
+                                                   │     │     │     │     │     │     │     │ eax *= dword [local_1ch]                                                                                                                                                        │                                           │ │
+                                                   │     │     │     │     │     │     │     │ eax += 1                                                                                                                                                                        │                                           │ │
+                                                   │     │     │     │     │     │     │     │ esp -= 4                                                                                                                                                                        │                                           │ │
+                                                   │     │     │     │     │     │     │     │ push eax                                                                                                                                                                        │                                           │ │
+                                                   │     │     │     │     │     │     │     │ push dword [local_14h]                                                                                                                                                          │                                           │ │
+                                                   │     │     │     │     │     │     │     │ push dword [arg_8h]                                                                                                                                                             │                                           │ │
+                                                   │     │     │     │     │     │     │     │ sub.recv_a26 ();[gb]                                                                                                                                                            │                                           │ │
+                                                   │     │     │     │     │     │     │     │ esp += 0x10                                                                                                                                                                     │                                           │ │
+                                                   │     │     │     │     │     │     │     │ dword [local_28h] = eax                                                                                                                                                         │                                           │ │
+                                                   │     │     │     │     │     │     │     │ var = dword [local_28h] - 0xffffffffffffffff                                                                                                                                    │                                           │ │
+                                                   │     │     │     │     │     │     │     │ if (var) goto 0x80494f1;[gBg]                                                                                                                                                   │                                           │ │
+                                                   │     │     │     │     │     │     │     └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                           │ │
+                                                   │     │     │     │     │     │     │             f t                                                                                                                                                                                                                   │ │
+                                                   │     │     │     │     │     │     │             │ │                                                                                                                                                                                                                   │ │
+                                                   │     │     │     │     │     │     │             │ └──────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                    │ │
+
+
+
+
+
+            if ( x_size <= 9999 && y_size <= 9999 )// signed
+            {
+              s = sbrk_n_friends((x_size - 1) * (y_size - 1));// result of sbrk not checked
+                                                // I can continually allocate things and then it'll like fail
+                                                // but like, I can totes read shit into whatever s is which will be -1, ok so probably not usefull
+              if ( (x_size - 1) * (y_size - 1) <= 4095 )// signed
+              {
+                memset(s, 0, (x_size - 1) * (y_size - 1));
+                fprintf(stderr, "Allocated buffer of size: %d", (y_size - 1) * (x_size - 1));
+                do
+                {
+                  print_thing(
+                    fd,
+                    (int)"Please send the string used to initialize the board. Please send X * Y bytes follow by a newlin"
+                         "eHave atleast 1 mine placed in your board, marked by the character X\n");
+                  v8 = read_in_board(fd, (char *)s, y_size * x_size + 1);
+
+
+
+
+
+
+B -1 -1 works
+
+
+
+B 4294967295 4294967295 crashes
+
+
+
+
+0x804c00c
+
+
+
+break 0x080493F9
+
+
+oh I seem to have rwx stack and heap
+
+
+
+5 5
+
+
+0000| 0x804c024 ("  +", '-' <repeats 21 times>, "R")
+0004| 0x804c028 ('-' <repeats 20 times>, "R")
+0008| 0x804c02c ('-' <repeats 16 times>, "R")
+0012| 0x804c030 ('-' <repeats 12 times>, "R")
+0016| 0x804c034 ("--------R")
+0020| 0x804c038 ("----R")
+0024| 0x804c03c --> 0x2d2d0052 ('R')
+0028| 0x804c040 --> 0x804c414 --> 0xfe
+0032| 0x804c044 --> 0x804c000 --> 0x2
+
+
+
+1 4 
+
+0000| 0x804c00c --> 0x54200001
+0004| 0x804c010 --> 0x804c03c --> 0x2d2d0012
+0008| 0x804c014 --> 0x804bdc8 --> 0x0
+
+1 16
+
+0000| 0x804c00c --> 0x54200001
+0004| 0x804c010 --> 0x804c018 --> 0x55 ('U')
+0008| 0x804c014 --> 0x804bdc8 --> 0x0
+0012| 0x804c018 --> 0x55 ('U')
+0016| 0x804c01c --> 0x804c414 --> 0xfe
+0020| 0x804c020 --> 0x804c00c --> 0x54200001
+
+
+
+
+the amount of overflow given x*y + 1 - (x-1)(y-1) == x+y
+
+
+
+
+0028| 0x804bd1c --> 0x0
+0032| 0x804bd20 --> 0x0
+0036| 0x804bd24 --> 0x0
+0040| 0x804bd28 --> 0x0
+0044| 0x804bd2c --> 0x0
+0048| 0x804bd30 --> 0x0
+0052| 0x804bd34 --> 0x0
+0056| 0x804bd38 --> 0x804bc4c --> 0x1
+0060| 0x804bd3c --> 0xf7ffd918 --> 0x0
+0064| 0x804bd40 --> 0xf7fee020 (push   eax)
+0068| 0x804bd44 --> 0xf7efb4d0 (<setsockopt>:	push   ebx)
+0072| 0x804bd48 --> 0x8048636 (<read@plt+6>:	push   0x8)
+0076| 0x804bd4c --> 0x8048646 (<_exit@plt+6>:	push   0x10)
+0080| 0x804bd50 --> 0xf7f39d20 (push   ebx)
+0084| 0x804bd54 --> 0xf7ec3270 (<alarm>:	mov    edx,ebx)
+0088| 0x804bd58 --> 0xf7f0a900 (<ntohs>:	mov    eax,DWORD PTR [esp+0x4])
+0092| 0x804bd5c --> 0x8048686 (<perror@plt+6>:	push   0x30)
+0096| 0x804bd60 --> 0xf7efaf30 (<accept>:	push   esi)
+0100| 0x804bd64 --> 0xf7e71d60 (<fwrite>:	push   ebp)
+0104| 0x804bd68 --> 0xf7e3fa70 (<sysv_signal>:	push   ebx)
+0108| 0x804bd6c --> 0x80486c6 (<__gmon_start__@plt+6>:	push   0x50)
+0112| 0x804bd70 --> 0x80486d6 (<open@plt+6>:	push   0x58)
+0116| 0x804bd74 --> 0x80486e6 (<srand@plt+6>:	push   0x60)
+0120| 0x804bd78 --> 0xf7ea2420 (push   edi)
+0124| 0x804bd7c --> 0xf7e2b540 (<__libc_start_main>:	call   0xf7f32b09)
+0128| 0x804bd80 --> 0xf7e5c650 (<fprintf>:	sub    esp,0xc)
+0132| 0x804bd84 --> 0xf7efafa0 (<bind>:	push   ebx)
+0136| 0x804bd88 --> 0xf7f38af0 (push   ebx)
+0140| 0x804bd8c --> 0x8048746 (<__errno_location@plt+6>:	push   0x90)
+0144| 0x804bd90 --> 0x8048756 (<rand@plt+6>:	push   0x98)
+0148| 0x804bd94 --> 0xf7ec33f0 (<fork>:	push   ebp)
+0152| 0x804bd98 --> 0xf7f0a8f0 (<ntohl>:	mov    eax,DWORD PTR [esp+0x4])
+0156| 0x804bd9c --> 0xf7efb180 (<listen>:	push   ebx)
+0160| 0x804bda0 --> 0xf7ef2060 (<sbrk>:	push   ebp)
+0164| 0x804bda4 --> 0xf7efb580 (<socket>:	push   ebx)
+0168| 0x804bda8 --> 0xf7efb1d0 (<recv>:	push   esi)
+0172| 0x804bdac --> 0xf7ee9280 (<close>:	cmp    DWORD PTR gs:0xc,0x0)
+0176| 0x804bdb0 --> 0xf7efb350 (<send>:	push   esi)
+0180| 0x804bdb4 --> 0x0
+0184| 0x804bdb8 --> 0x0
+0188| 0x804bdbc --> 0xf7fc5cc0 --> 0xfbad2887
+0192| 0x804bdc0 --> 0x0 							stderr_flag
+
+0196| 0x804bdc4 --> 0x804bdc8 --> 0x0 				list pointer
+
+0200| 0x804bdc8 --> 0x0 							list
+0204| 0x804bdcc --> 0x804c00c --> 0x34330012 
+0208| 0x804bdd0 --> 0x804c414 --> 0xfe
+
+0212| 0x804bdd4 --> 0x0
+0216| 0x804bdd8 --> 0x0
+0220| 0x804bddc --> 0x0
+0224| 0x804bde0 --> 0x0
+0228| 0x804bde4 --> 0x0
+0232| 0x804bde8 --> 0x0
+0236| 0x804bdec --> 0x0
+0240| 0x804bdf0 --> 0x0
+
+
+0244| 0x804bdf4 --> 0x0
+0248| 0x804bdf8 --> 0x0
+
+
+
+
+
+size_t __cdecl delink(int a1, node *a2)
+{
+  struct node *v2; // ST1C_4@1
+
+  v2 = a2->prev;
+  a2->prev->next = a2->next;
+  a2->next->prev = v2;
+  return fwrite("delinked!", 1u, 9u, stderr);
+}
+
+
+
+
+list_struct *__cdecl sbrk_n_friends(int a1, int a2)
+{
+  node *v3; // [esp-38h] [ebp-38h]@0
+  list_struct *v4; // [esp-1Ch] [ebp-1Ch]@12
+  unsigned int desired_len; // [esp-18h] [ebp-18h]@1
+  list_struct *cur_node; // [esp-10h] [ebp-10h]@1
+  list_struct *i; // [esp-Ch] [ebp-Ch]@3
+
+  cur_node = 0;
+  desired_len = (a2 + 11) / 12u + 1;
+  if ( !list_pointer )
+  {
+    list_pointer = list;
+    LOWORD(list[0]) = 0;
+    list[1] = list;
+    list_pointer->prev = list_pointer;
+  }
+  for ( i = list_pointer->next; i != list_pointer; i = i->next )
+  {
+    if ( LOWORD(i->size) >= desired_len )
+    {
+      cur_node = i;
+      break;
+    }
+  }
+  if ( cur_node && LOWORD(cur_node->size) == desired_len )
+  {
+    delink(cur_node, v3);
+    return cur_node + 1;
+  }
+  if ( !cur_node )
+  {
+    v4 = sbrk(4096);
+    if ( v4 == -1 )
+      return -1;
+    cur_node = v4;
+    LOWORD(v4->size) = 341;
+  }
+  if ( !cur_node || LOWORD(cur_node->size) <= desired_len )
+    return -1;
+  LOWORD(cur_node[desired_len].size) = LOWORD(cur_node->size) - desired_len;
+  LOWORD(cur_node->size) = desired_len;
+  if ( cur_node->next )
+  {
+    if ( cur_node->prev )
+      delink(cur_node, v3);
+  }
+  sub_804978E(&cur_node[desired_len]);
+  return cur_node + 1;
+}
+
+
+
+0032| 0x804bdc4 --> 0x804bdc8 --> 0x0 							list pointer
+0036| 0x804bdc8 --> 0x0
+0040| 0x804bdcc --> 0x804c00c ("1234567890qwertyX\304\004\b\f\300\004\b  +", '-' <repeats 27 times>, "+", '-' <repeats 27 times>, "+")
+0044| 0x804bdd0 --> 0x804c414 --> 0xfe
+
+
+
+1234 5678 90qw erty X
+
+5678 is next
+90qw is prev
+
+
+
+
+
+
+B 2 28: read 57 into 48
+
+
+
+B 2 28: read 57 into my_malloc(27) = 48
+
+
+
+B 2 28: read 57 into my_malloc(27) = 48-12 meta data == 36
+
+
+print "B 2 {x}: read {r} into my_malloc({c}) = {b}-12 meta data == {d}".format(x=x, r=2*x+1, b=12*(int(((2-1)*(x-1) + 11)/12) + 1), c=(2-1)*(x-1), d=12*(int(((2-1)*(x-1) + 11)/12) + 1) - 12)

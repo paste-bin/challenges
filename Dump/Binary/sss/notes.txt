@@ -1,0 +1,99 @@
+notes.txt
+
+
+SO I can sign these things
+"ls"
+"pwd"
+"id"
+"whoami"
+
+ls: 
+	flag
+	sss
+	sss_runner.sh
+
+pwd:
+	/home/sss
+
+whoami:
+	sss
+
+id:
+	uid=1000(sss) gid=1000(sss) groups=1000(sss)
+
+
+
+
+
+I think the trick is in the handeling of this byte_602240
+
+and the m_exec_guy stuff, gotta trick it into running my stuff
+
+
+quick detour however, cuz it might be doing a php === loose equality thing XD brb
+
+
+
+  if ( !strcmp(s1, (const char *)buf) )
+    (*(void (__fastcall **)(char *, void *))(m_exec_guy + 27))(global, v10);
+  else
+    (*(void (__fastcall **)(char *, void *))(m_exec_guy + 19))(global, v10);
+  puts(byte_40165B_main_menu);
+  return *MK_FP(__FS__, 40LL) ^ v21;
+
+
+
+
+
+yep off by one
+
+
+[------------------------------------stack-------------------------------------]
+0000| 0x7fffffffdd00 --> 0x7fffffffdd1c --> 0xffffdd9000007fff 
+0008| 0x7fffffffdd08 --> 0x4011c1 (<execute_it+289>:	mov    rdi,rax)
+0016| 0x7fffffffdd10 --> 0x7ffff79ac683 --> 0x9ad760000000000a 
+0024| 0x7fffffffdd18 --> 0x7ffff7684b32 (<new_do_write+98>:	test   rax,rax)
+0032| 0x7fffffffdd20 --> 0x7fffffffdd90 --> 0xa32 ('2\n')
+0040| 0x7fffffffdd28 --> 0x500000001 
+0048| 0x7fffffffdd30 --> 0x603061 --> 0x0 
+0056| 0x7fffffffdd38 --> 0x7fffffffdd90 --> 0xa32 ('2\n')
+[------------------------------------------------------------------------------]
+Legend: code, data, rodata, value
+0x00000000004011e0 in execute_it ()
+gdb-peda$ x/20wx exec_guy
+0x603060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x603070:	0x00000000	0x00400d36	0x00000000	0x00400d5b
+0x603080:	0x00000000	0x00000000	0x000005c1	0x00000000
+0x603090:	0xf79abb58	0x00007fff	0xf79abb58	0x00007fff
+0x6030a0:	0x00000000	0x00000000	0x00000000	0x00000000
+gdb-peda$ ni
+
+
+
+wait no, still slightly off.....
+
+
+
+
+fuckin got it
+
+
+you sign a thing 
+that reads into global
+and you fill it, so that 
+
+ dest = (void *)m_exec_guy;
+ if ( !use_md5 ) //it's 1 so this stays as m_exec_guy
+    dest = (void *)s_exec_guy;
+  puts("what command do you want to run?");
+  printf(">_ ");
+  v15 = read(0, global, 0x100uLL);
+  global[v15] = 0;
+
+ makes the thing set use_md5 to 0
+
+
+
+comes in as use_md5 == 1
+so we get the extra off by one for the pointer
+then we set it to 0 by using the out of bounds 0 writing that happens when we fill the 'global' buffer

@@ -1,0 +1,61 @@
+thinking.txt
+
+
+https://sploitfun.wordpress.com/2015/02/10/understanding-glibc-malloc/
+
+
+
+vagrant needs gdb, pwntools, voltron
+
+
+drr;pd 10@-10;pxr 40@esp
+
+
+pxr 100@rsp+0x50
+
+
+house of spirit
+see phrack
+
+add 2 zealots 
+destroy one (i.e free it)
+display it to leak the meta data that malloc puts in when it frees a thing
+
+
+
+
+
+add 3 zealots of size big enough for a small bin
+free the first 2
+
+the first free chunk in our doubly linked small bin list 
+will point forward to the second free one in the heap leaking the heap
+and the backward pointer will point to libc
+
+
+r2 -A -R connect=127.1:1111 -d auif
+
+r2 -A -d `ps -C auir -o pid=`
+
+
+
+  0x0040221f      sub._ZNSolsEPFRSoS_E_112_9c0 ()            ;[1] // Read in the indexj
+  0x00402224      edi = 1
+  0x00402229      ecx = 8
+  0x0040222e      edx = ecx
+  0x00402230      rsi = qword [local_50h]
+  0x00402234      r8 = dword [rsi]
+  0x00402237      rsi = qword [r8*8 + 0x605310] // this is now a pointer to the heap with the string of the things index we gave
+  ;-- rip:
+  0x0040223f      qword [local_70h] = rax
+  0x00402243      sym.imp.write ()                           ;[2]
+
+
+ pxr 8 @ rbp - 0x50
+0x7ffc28f08ab0  0x00007ffc28f08a40   @..(.... rsp stack R W 0x7ff200000000
+
+
+12
+points to -29
+
+one gadget

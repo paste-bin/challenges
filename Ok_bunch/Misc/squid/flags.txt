@@ -1,0 +1,3 @@
+squid 0 tears = "aFaCaTaFa_aKaIaTaTaEaNa_aCaAaNaNaOaN"
+squid 1 tears = "aFaCaTaFa{atahaea_aoanaiaoanasa_aaaraea_acaoamamaianaga}"
+squid 2 tears = "FCTF{the_squid_army_is_uppon_us}"

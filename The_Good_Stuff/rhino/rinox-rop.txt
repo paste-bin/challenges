@@ -1,0 +1,169 @@
+0x804a631: ret
+0x804a57d: retf
+0x804853d: iret
+0x8048749: repz ret
+0x80544ed: cld; ret
+0x8053d8b: ret 0x804
+0x804882f: leave; ret
+0x80488db: ret 0x5201
+0x80487f8: ret 0x4d8b
+0x805a4b4: inc ecx; ret
+0x805454f: pop ebp; ret
+0x8053a28: dec ecx; ret
+0x804c346: push ss; ret
+0x804a647: inc ebp; ret
+0x8048559: pop ebx; ret
+0x8048807: or al,ch; ret
+0x805455f: nop; repz ret
+0x8053d9d: or ch,bl; ret
+0x804a680: push ebp; ret
+0x804853b: or al,ch; iret
+0x80544ec: popa; cld; ret
+0x804a57c: push ebp; retf
+0x80488e7: add cl,cl; ret
+0x804a4d8: push ebp; iret
+0x80537c5: nop; leave; ret
+0x8048748: leave; repz ret
+0x804882e: lock leave; ret
+0x804a6b0: mov dh,0x45; ret
+0x8048711: sbb al,0x24; ret
+0x805a4b3: adc al,0x41; ret
+0x8057f9a: add [eax],al; ret
+0x804845e: add eax,[eax]; ret
+0x8048710: mov ebx,[esp]; ret
+0x805455e: nop; nop; repz ret
+0x804845b: or eax,0x30000; ret
+0x8048747: adc cl,cl; repz ret
+0x804c28a: call [eax-0x18]; iret
+0x80487aa: add ecx,ecx; repz ret
+0x805454e: pop edi; pop ebp; ret
+0x80544eb: lea esp,[ecx-0x4]; ret
+0x804a8b1: mov bh,0x83; ret 0x5201
+0x80487a8: add eax,0xf3c90108; ret
+0x80544f7: adc eax,0x81ffff42; ret
+0x804870f: nop; mov ebx,[esp]; ret
+0x80488e3: mov eax,0x0; leave; ret
+0x804a955: mov bl,0x83; ret 0x5201
+0x805455d: nop; nop; nop; repz ret
+0x80487f6: adc [ecx],ch; ret 0x4d8b
+0x80488e6: add [eax],al; leave; ret
+0x804882d: inc ebp; lock leave; ret
+0x804a101: out 0x83,eax; ret 0x5201
+0x804853a: in al,dx; or al,ch; iret
+0x804a6c2: or al,0x8d; push ebp; ret
+0x8048556: add esp,0x8; pop ebx; ret
+0x805a4b2: push cs; adc al,0x41; ret
+0x8054569: mov ds:0x81ffff41,eax; ret
+0x804a57a: or al,0x8d; push ebp; retf
+0x8048744: rol [ebx-0xc36ef3c],1; ret
+0x804a4d6: or al,0x8d; push ebp; iret
+0x804877e: rol [ebx-0xc36ef3c],cl; ret
+0x80537c1: rol [ebx-0x366fef3c],1; ret
+0x8048557: les ecx,[eax]; pop ebx; ret
+0x80487a9: or [ecx],al; leave; repz ret
+0x80488e2: adc [eax+0x0],bh; leave; ret
+0x80488e5: add [eax],al; add cl,cl; ret
+0x804c343: call [eax-0x18]; push ss; ret
+0x804a6ae: ror [edi],1; mov dh,0x45; ret
+0x8048745: add esp,0x10; leave; repz ret
+0x80537c2: add esp,0x10; nop; leave; ret
+0x80544ea: leave; lea esp,[ecx-0x4]; ret
+0x804870e: xchg ax,ax; mov ebx,[esp]; ret
+0x804882c: sub eax,[ebp-0x10]; leave; ret
+0x8048746: les edx,[eax]; leave; repz ret
+0x805454d: pop esi; pop edi; pop ebp; ret
+0x80487a6: xor [esi-0x36fef7fb],0xf3; ret
+0x80537c3: les edx,[eax]; nop; leave; ret
+0x8048459: imul ebp,[ecx+0xd],0x30000; ret
+0x80581e8: mov [edx],ah; add [eax],al; ret
+0x804a644: xor [eax-0x73],dl; inc ebp; ret
+0x804845c: add [eax],al; add eax,[eax]; ret
+0x804a954: push ebp; mov bl,0x83; ret 0x5201
+0x804a8b0: push ebp; mov bh,0x83; ret 0x5201
+0x8057f97: dec [eax+0x19]; add [eax],al; ret
+0x80487f5: push ebp; adc [ecx],ch; ret 0x4d8b
+0x804a100: push ebp; out 0x83,eax; ret 0x5201
+0x80544e9: cld; leave; lea esp,[ecx-0x4]; ret
+0x8057f95: push 0x1948ffff; add [eax],al; ret
+0x805a4b1: dec eax; push cs; adc al,0x41; ret
+0x805a4b0: add cl,[eax+0xe]; adc al,0x41; ret
+0x804870d: nop; xchg ax,ax; mov ebx,[esp]; ret
+0x8048552: call 0x8c4:0x83000000; pop ebx; ret
+0x8048742: or bh,bh; rol [ebx-0xc36ef3c],1; ret
+0x8054567: or al,ch; mov ds:0x81ffff41,eax; ret
+0x80488e0: add esp,0x10; mov eax,0x0; leave; ret
+0x804877c: or bh,bh; rol [ebx-0xc36ef3c],cl; ret
+0x80487a4: mov ds:0x805b680,0x1; leave; repz ret
+0x804882b: adc [ebx],ch; inc ebp; lock leave; ret
+0x804f7e9: jmp 0x804f76e <func_d3+24>; ret 0x5201
+0x804a05d: jmp 0x8049fe2 <func_53+24>; ret 0x5201
+0x80523af: jmp 0x8052334 <func_13+24>; ret 0x5201
+0x80488e4: add [eax],al; add [eax],al; leave; ret
+0x804a694: add [ecx-0x723ece2f],cl; push ebp; ret
+0x80488e1: les edx,[eax]; mov eax,0x0; leave; ret
+0x804cc23: jmp 0x804cba8 <func_93+24>; ret 0x5201
+0x8048554: add [eax],al; add esp,0x8; pop ebx; ret
+0x804877d: call edx; add esp,0x10; leave; repz ret
+0x8048743: call eax; add esp,0x10; leave; repz ret
+0x80544e6: add [ebx-0x723603b3],cl; popa; cld; ret
+0x8048458: adc [ecx+0x69],ebp; or eax,0x30000; ret
+0x804a1a5: jecxz 0x804a12a <func_55+24>; ret 0x5201
+0x804f931: jecxz 0x804f8b6 <func_d5+24>; ret 0x5201
+0x80487a7: mov dh,0x5; or [ecx],al; leave; repz ret
+0x80524f7: jecxz 0x805247c <func_15+24>; ret 0x5201
+0x80487a5: add eax,0x805b680; add ecx,ecx; repz ret
+0x804cd6b: jecxz 0x804ccf0 <func_95+24>; ret 0x5201
+0x805456d: add ebx,0x7067; add esp,0x8; pop ebx; ret
+0x804a6ac: or al,0x72; ror [edi],1; mov dh,0x45; ret
+0x80581e4: or bl,[ebx+0x2288ffff]; add [eax],al; ret
+0x804870c: xchg ax,ax; xchg ax,ax; mov ebx,[esp]; ret
+0x8048537: add [ebx-0x7d],dl; in al,dx; or al,ch; iret
+0x80537be: call [edx-0x1]; rol [ebx-0x366fef3c],1; ret
+0x8054548: fild [ebx+0x5e5b1cc4]; pop edi; pop ebp; ret
+0x804a642: add al,0x6a; xor [eax-0x73],dl; inc ebp; ret
+0x804a952: or al,0x8d; push ebp; mov bl,0x83; ret 0x5201
+0x804a8ae: or al,0x8d; push ebp; mov bh,0x83; ret 0x5201
+0x8048457: add [ecx],dl; imul ebp,[ecx+0xd],0x30000; ret
+0x8054566: in al,dx; or al,ch; mov ds:0x81ffff41,eax; ret
+0x804a0fe: or al,0x8d; push ebp; out 0x83,eax; ret 0x5201
+0x8053a24: jmp 0x8053984 <tcp_server_loop+401>; leave; ret
+0x804f7e8: push ebp; jmp 0x804f76e <func_d3+24>; ret 0x5201
+0x80544e7: mov ecx,[ebp-0x4]; leave; lea esp,[ecx-0x4]; ret
+0x804a05c: push ebp; jmp 0x8049fe2 <func_53+24>; ret 0x5201
+0x804cc22: push ebp; jmp 0x804cba8 <func_93+24>; ret 0x5201
+0x8057f93: add [edx],cl; push 0x1948ffff; add [eax],al; ret
+0x80523ae: push ebp; jmp 0x8052334 <func_13+24>; ret 0x5201
+0x805a4ab: add ds:0x2300e4e,0x48; push cs; adc al,0x41; ret
+0x8048740: mov dh,0x5; or bh,bh; rol [ebx-0xc36ef3c],1; ret
+0x804a6bc: or [ebx+0x75ff08ec],al; or al,0x8d; push ebp; ret
+0x80487a3: inc esi; add eax,0x805b680; add ecx,ecx; repz ret
+0x8048828: enter 0x458b,0x10; sub eax,[ebp-0x10]; leave; ret
+0x804877a: mov dh,0x5; or bh,bh; rol [ebx-0xc36ef3c],cl; ret
+0x804877b: add eax,0x83d2ff08; les edx,[eax]; leave; repz ret
+0x80488df: rol [ebx+0xb810c4],1; add [eax],al; add cl,cl; ret
+0x80524f6: push ebp; jecxz 0x805247c <func_15+24>; ret 0x5201
+0x8048741: add eax,0x83d0ff08; les edx,[eax]; leave; repz ret
+0x804a1a4: push ebp; jecxz 0x804a12a <func_55+24>; ret 0x5201
+0x8057f94: or ch,[eax-0x1]; dec [eax+0x19]; add [eax],al; ret
+0x804f930: push ebp; jecxz 0x804f8b6 <func_d5+24>; ret 0x5201
+0x8048829: mov eax,[ebp+0x10]; sub eax,[ebp-0x10]; leave; ret
+0x804cd6a: push ebp; jecxz 0x804ccf0 <func_95+24>; ret 0x5201
+0x8048456: add [eax],al; adc [ecx+0x69],ebp; or eax,0x30000; ret
+0x804a621: mov [ebx-0xadfe3e],0x10c483d0; mov eax,0x0; leave; ret
+0x80581e2: add [eax],al; or bl,[ebx+0x2288ffff]; add [eax],al; ret
+0x80537ee: jmp 0x80537ce <reap_exited_processes+6>; nop; leave; ret
+0x804854c: inc [ebp-0x17fa8b40]; call 0x8c4:0x83000000; pop ebx; ret
+0x8048455: add [eax],al; add [ecx],dl; imul ebp,[ecx+0xd],0x30000; ret
+0x804f7e6: or al,0x8d; push ebp; jmp 0x804f76e <func_d3+24>; ret 0x5201
+0x804a05a: or al,0x8d; push ebp; jmp 0x8049fe2 <func_53+24>; ret 0x5201
+0x80523ac: or al,0x8d; push ebp; jmp 0x8052334 <func_13+24>; ret 0x5201
+0x804cc20: or al,0x8d; push ebp; jmp 0x804cba8 <func_93+24>; ret 0x5201
+0x8053a21: add esp,0x10; jmp 0x8053984 <tcp_server_loop+401>; leave; ret
+0x804cd68: or al,0x8d; push ebp; jecxz 0x804ccf0 <func_95+24>; ret 0x5201
+0x8048551: call 0x80485f0 <__gmon_start__@plt>; add esp,0x8; pop ebx; ret
+0x80524f4: or al,0x8d; push ebp; jecxz 0x805247c <func_15+24>; ret 0x5201
+0x8053a22: les edx,[eax]; jmp 0x8053984 <tcp_server_loop+401>; leave; ret
+0x804a1a2: or al,0x8d; push ebp; jecxz 0x804a12a <func_55+24>; ret 0x5201
+0x804f92e: or al,0x8d; push ebp; jecxz 0x804f8b6 <func_d5+24>; ret 0x5201
+0x80581dd: call 0x0:0x2268ffff; or bl,[ebx+0x2288ffff]; add [eax],al; ret
+0x804879f: call 0x8048720 <deregister_tm_clones>; mov ds:0x805b680,0x1; leave; repz ret

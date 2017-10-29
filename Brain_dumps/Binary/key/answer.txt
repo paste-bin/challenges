@@ -1,0 +1,3 @@
+root@kali:~/BrainBox/schoolCTF/re100# ./task9_x86_64_46d01fe312d35ecf69c4ff8ab8ace75d080891dc <<< `python -c "print '\x10'*12 + '\xbf\x8f\x7d\xae' "`
+Key: flag_is_you_know_cracking!!!root@kali:~/BrainBox/schoolCTF/re100# 
+

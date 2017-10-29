@@ -1,0 +1,416 @@
+/*-----GENERAL-----*/
+html, body {
+	margin: 0px;
+	padding: 0px;
+	color: black !important;
+}
+
+.background-image {
+  position: fixed;
+  opacity: 0.4;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  background-image: url('http://mytimetable.xyz/university/media/background-university.jpg');
+  background-repeat: none;
+  background-size: cover;
+  
+  -webkit-filter: blur(20px);
+  -moz-filter: blur(20px);
+  -o-filter: blur(20px);
+  -ms-filter: blur(20px);
+  filter: blur(20px);
+}
+
+#homeIcon {
+    background: url('http://mytimetable.xyz/university/media/home-icon.png');
+    background-size: 100%;
+    position: absolute;
+    display: block;
+    height: 40px;
+    width: 40px;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+#homeIcon:hover {
+	background: url('http://mytimetable.xyz/university/media/home-icon-highlight.png');
+	background-size: 100%;
+}
+
+#header {
+  width: 100%;
+  min-height: 50px;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.shadow {
+  -webkit-box-shadow: 0 6px 4px -4px black;
+  -moz-box-shadow: 0 6px 4px -4px black;
+  box-shadow: 0 6px 4px -4px black;
+}
+
+.content {
+  z-index: 999;
+  width: 100%;
+}
+
+#main {
+  margin-top: 10px;
+  width: 80%;
+  min-width: 320px !important;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+h1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 32px;
+  color: darkblue;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-top: 0px;
+  padding-top: 10px;
+  line-height: 50px;
+  margin-bottom: 0px;
+  font-weight: 900;
+}
+
+h2 {
+  font-size: 1.5em;
+  font-weight: 900;
+}
+
+form {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50%;
+  min-width: 300px;
+  background-color: rgba(255, 255, 255, 0);
+  text-align: center;
+}
+
+input, select, option, textarea, #termsofuse, .segmented-control {
+    font-size: 1em;
+    width: 80%;
+    min-width: 280px;
+    display: inline-block;
+}
+
+.pure-form input[type='text'], .pure-form input[type='password'] {
+    display: inline-block !important;
+}
+
+textarea {
+	min-height: 150px;
+	width: 100%;
+	resize:vertical;
+    	overflow:auto;
+}
+
+input[type=checkbox] {
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+  min-width: 30px;
+  width: auto;
+}
+
+.segmented-control {
+	height: 34px;
+}
+
+.segmented-control label {
+	line-height: 34px !important;
+}
+
+.active-blue {
+	color: rgb(20,100,250) !important;
+}
+
+#termsofuse {
+  font-size: 1em;
+  width: 80%;
+  min-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#termsText {
+	margin-left: 15px;
+	cursor: pointer;
+}
+
+.cent {
+  width: 100%;
+  text-align: center;
+}
+
+.overview
+{
+  font-style: italic; 
+  color: darkblue; 
+  font-size: 14px;
+}
+#overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  opacity: 0.5;
+
+}
+
+.displayLetter
+{
+  font-family: 'Raleway', sans-serif;
+  font-weight: 100;
+  font-size: 50px;
+  color: darkblue;
+  font-style: italic;
+  line-height: 60px;
+}
+
+@media screen and (max-width: 637px) {
+	.desktop-navigation
+	{
+		display: none !important;
+	}
+	.mobile-navigation
+	{
+		display: block !important;
+	}
+}
+
+/*-----HOME PAGE STYLES-----*/
+.actionContainer {
+	text-align: center;
+	display: inline-block;
+	margin-right: -30px;
+}
+.action {
+	width: 150px;
+	height: 150px;
+	display: block;
+	background-color: white;
+	border-radius: 10px;
+	text-align: center;
+	float: left;
+	margin-right: 30px;
+}
+
+@media screen and (max-width: 637px) {
+	.action {
+		float: none;
+    		margin-bottom: 30px;
+    		margin-left: auto;
+    		margin-right: auto;
+    	}
+    	.actionContainer {
+    		margin-right: 0px;
+    	}
+}
+
+.actionIcon {
+	width: 50px;
+	height: 50px;
+	margin-top: 50px;
+}
+#actionDescription {
+	font-style: italic;
+	color: darkblue;
+}
+.actionDescription {
+	font-style: italic;
+	color: darkblue;
+}
+
+/*-----DASHBOARD-----*/
+.logo
+{
+	width: 160px;
+	height: 160px;
+	margin-left: auto;
+	margin-right: auto;
+	background-image: url('../../../Logo.jpg');
+	box-shadow: 10px 10px 50px -8px #3973c4;
+}
+.footer
+{
+	color: white;
+	position: absolute;
+	bottom: 10px;
+	height: 20px;
+	font-style: italic;
+}
+.reel
+{
+	min-height: 50px;
+	font-style: italic; 
+	color: darkblue; 
+	font-size: 14px;
+	width: 100%;
+	text-align: center;
+}
+.quotes
+{
+	display: none;
+}
+
+/*-----PERSONAL TIMETABLE-----*/
+#timetable
+{
+	width: 100%;
+    	background-color: rgba(255, 255, 255, 0.5);
+    	padding: 10px;
+    	table-layout: fixed;
+    	border-radius: 5px;
+    	text-align: center;
+    	border-collapse: collapse;
+    	font-family: Roboto, sans-serif;
+	color: black;
+	font-size: 16px;
+}
+#timetable tr
+{
+	border-bottom: 1px solid #ccc;
+}
+#timetable th, #timetable td
+{
+	padding: 10px;
+	word-wrap: break-word;
+}
+#timetable th
+{
+	background-color: white;
+}
+#timetable td
+{
+	height: 76px;
+}
+#timetable .classCell
+{
+	font-size: 10px; 
+	font-style: italic;
+}
+
+#mobile-header
+{
+	display: none;
+}
+#desktop-header
+{
+	display: table-row;
+}
+
+@media screen and (max-width: 637px) 
+{
+	#timetable td, #timetable th
+	{
+		padding: 10px 2px !important;
+	}
+	#timetable td
+	{
+		font-size: 10px;
+	}
+}
+@media screen and (max-width: 780px) 
+{
+	#timetable td
+	{
+		font-size: 14px;
+	}
+	#mobile-header
+	{
+		display: table-row;
+	}
+	#desktop-header
+	{
+		display: none;
+	}
+}
+
+/*-----COURSE INFO-----*/
+#courseDescription {
+	font-family: 'Kalam', cursive;
+	font-weight: light;
+	font-size: 20px;
+}
+#excluded {
+	color: #CC0000;
+}
+#requirements {
+	color: #FF6600;
+}
+#units {
+	margin-left: 30px; color: #808080;
+}
+#hours {
+	margin-left: 30px; color: #808080;
+}
+#authority {
+	color: #333399;
+}
+#faculty, #arrow, .pure-button {
+	margin-right: 10px;
+}
+@media print
+{    
+    .noPrint {
+        display: none !important;
+    }
+}
+
+/*-----COURSE TIMETABLE-----*/
+.sectionHeading {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	color: darkblue;
+}
+.sectionBlock {
+	width: 100%;
+}
+.sectionBlock table:last-child {
+	border-bottom: none;
+}
+.classTable {
+	width: 100%;
+	background-color: rgba(255, 255, 255, 0.4);
+	padding: 10px;
+	border-bottom: 1px solid #3399FF;
+}
+.classTable td {
+	padding: 0px 5px;
+}
+.classTable .fixedCol {
+	width: 100px;
+}
+@media screen and (max-width: 940px) {
+	.breakpointA
+	{
+		display: none;
+	}
+}
+@media screen and (max-width: 630px) {
+	.breakpointB
+	{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 330px) {
+	#homeIcon
+	{
+		display: none;
+	}
+}

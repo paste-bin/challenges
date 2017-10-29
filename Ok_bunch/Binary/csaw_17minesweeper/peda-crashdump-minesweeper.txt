@@ -1,0 +1,53 @@
+[m[-----------------------------START OF CRASH DUMP------------------------------][0m
+[mTimestamp: Sun Sep 17 04:32:36 2017[0m
+[mReason: [;31mInteractive dump[0m[0m
+[mExploitability: Unknown[0m
+[;34m[----------------------------------registers-----------------------------------][0m
+[m[;32mEAX[0m: 0x38373635 ('5678')
+[;32mEBX[0m: 0x0 
+[;32mECX[0m: 0xc ('\x0c')
+[;32mEDX[0m: 0x32313039 ('9012')
+[;32mESI[0m: [;34m0xf7fc5000[0m --> 0x1b1db0 
+[;32mEDI[0m: [;34m0xf7fc5000[0m --> 0x1b1db0 
+[;32mEBP[0m: [;34m0xffffd368[0m --> [;34m0xffffd3a8[0m --> [;34m0xffffd3f8[0m --> [;34m0xffffd448[0m --> [;34m0xffffd468[0m --> [;34m0xffffd4b8[0m (--> ...)
+[;32mESP[0m: [;34m0xffffd350[0m --> 0x0 
+[;32mEIP[0m: [;31m0x8049855[0m (mov    DWORD PTR [eax+0x8],edx)[0m
+[m[;32mEFLAGS[0m: 0x10286 ([;32mcarry[0m [;1;31mPARITY[0m [;32madjust[0m [;32mzero[0m [;1;31mSIGN[0m [;32mtrap[0m [;1;31mINTERRUPT[0m [;32mdirection[0m [;32moverflow[0m)[0m
+[m[;34m[-------------------------------------code-------------------------------------][0m[0m
+[m   0x8049840:[;2m	mov    DWORD PTR [ebp-0xc],eax[0m
+   0x8049843:[;2m	mov    eax,DWORD PTR [ebp+0x8][0m
+   0x8049846:[;2m	mov    eax,DWORD PTR [eax+0x4][0m
+   0x8049849:[;2m	mov    DWORD PTR [ebp-0x10],eax[0m
+   0x804984c:[;2m	mov    eax,DWORD PTR [ebp+0x8][0m
+   0x804984f:[;2m	mov    eax,DWORD PTR [eax+0x4][0m
+   0x8049852:[;2m	mov    edx,DWORD PTR [ebp-0xc][0m
+=> 0x8049855:[;1;32m	mov    DWORD PTR [eax+0x8],edx[0m
+   0x8049858:[m	mov    eax,DWORD PTR [ebp+0x8][0m
+   0x804985b:[m	mov    eax,DWORD PTR [eax+0x8][0m
+   0x804985e:[m	mov    edx,DWORD PTR [ebp-0x10][0m
+   0x8049861:[m	mov    DWORD PTR [eax+0x4],edx[0m
+   0x8049864:[m	mov    eax,ds:0x804bdbc[0m
+   0x8049869:[m	push   eax[0m
+   0x804986a:[m	push   0x9[0m
+   0x804986c:[m	push   0x1[0m[0m
+[m[;34m[------------------------------------stack-------------------------------------][0m[0m
+[m0000| [;34m0xffffd350[0m --> 0x0 [0m
+[m0004| [;34m0xffffd354[0m --> [;34m0xf7fc5000[0m --> 0x1b1db0 [0m
+[m0008| [;34m0xffffd358[0m ("56789012\004")[0m
+[m0012| [;34m0xffffd35c[0m ("9012\004")[0m
+[m0016| [;34m0xffffd360[0m --> 0x4 [0m
+[m0020| [;34m0xffffd364[0m --> [;34m0x804c00c[0m --> 0x34330012 [0m
+[m0024| [;34m0xffffd368[0m --> [;34m0xffffd3a8[0m --> [;34m0xffffd3f8[0m --> [;34m0xffffd448[0m --> [;34m0xffffd468[0m --> [;34m0xffffd4b8[0m (--> ...)[0m
+[m0028| [;34m0xffffd36c[0m --> [;31m0x80499ea[0m (add    esp,0x10)[0m
+[;34m[-----------------------backtrace (innermost 10 frames)------------------------][0m
+[m#0  0x08049855 in ?? () delink
+#1  0x080499ea in ?? () my_malloc
+#2  0x08049526 in ?? () init_game 159
+#3  0x080496b0 in ?? ()
+#4  0x08049b75 in ?? ()
+#5  0x08049d96 in ?? ()
+#6  0xf7e2b637 in __libc_start_main () from /lib/i386-linux-gnu/libc.so.6
+#7  0x08048801 in ?? ()
+[0m
+[m[------------------------------END OF CRASH DUMP-------------------------------]
+[0m

@@ -1,0 +1,9 @@
+break *0x400F6B
+break *0x400b30
+  commands
+    silent
+    set $rax = 0
+    return
+    continue
+  end
+

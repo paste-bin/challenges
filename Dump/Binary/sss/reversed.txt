@@ -1,0 +1,362 @@
+reversed.txt
+
+
+int handle_it() {
+    printf("1) sign command\n2) execute command\n>_ ");
+    read(0x0, var_20, 0x4);
+    rax = sign_extend_64(var_20 & 0xff);
+    if (rax != 0x31) { // if it's not 1
+            if (rax != 0x32) {
+                    puts(0x4016bf); // print invalid msg
+                    rax = 0x1;
+            }
+            else {
+                    execute_it();
+                    rax = 0x0;
+            }
+    }
+    else {
+            sign_it(); // sign it
+            rax = 0x0;
+    }
+    rcx = *0x28 ^ *0x28; //wtf is dis... ahh stack cookie probs
+    if (rcx != 0x0) {
+            rax = __stack_chk_fail();
+    }
+    return rax;
+}
+
+signed __int64 handle_it()
+{
+  signed __int64 result; // rax@3
+  __int64 v1; // rcx@6
+  char buf; // [rsp+0h] [rbp-20h]@1
+  __int64 v3; // [rsp+18h] [rbp-8h]@1
+
+  v3 = *MK_FP(__FS__, 40LL);
+  printf("1) sign command\n2) execute command\n>_ ");
+  read(0, &buf, 4uLL);
+  if ( buf == 49 )
+  {
+    sign_it(0LL, &buf);
+    result = 0LL;
+  }
+  else if ( buf == 50 )
+  {
+    execute_it(0LL, &buf);
+    result = 0LL;
+  }
+  else
+  {
+    puts("NOP");
+    result = 1LL;
+  }
+  v1 = *MK_FP(__FS__, 40LL) ^ v3;
+  return result;
+}
+
+...
+
+
+int sign_it() {
+    if (*exec_guy == 0x0) {
+            *exec_guy = calloc(0x24, 0x1);
+            *s_exec_guy = *exec_guy;
+            *m_exec_guy = *exec_guy + 0x1;
+            *(*s_exec_guy + 0x14) = 0x400d36;
+            *(*s_exec_guy + 0x1c) = 0x400d5b;
+    }
+    puts("what command do you want to sign?");
+    printf(0x401622);
+    *(int8_t *)(sign_extend_32(read(0x0, 0x602140_cmd, 0x100)) + 0x602140_cmd) = 0x0;
+    if ((((strcmp(0x602140_cmd, 0x4015a8) != 0x0) && (strcmp(0x602140_cmd, 0x4015ac) != 0x0)) && (strcmp(0x602140_cmd, 0x4015b1) != 0x0)) && (strcmp(0x602140_cmd, "whoami\n") != 0x0)) {
+            puts("not going to sign that for you...");
+    }
+    else {
+            if ((*(int8_t *)use_md5 & 0xff) != 0x0) {
+                    var_38 = HMAC(EVP_md5(), *key, strlen(*key), 0x602140_cmd, strlen(0x602140_cmd), 0x0, var_44);
+            }
+            else {
+                    var_38 = HMAC(EVP_sha1(), *key, strlen(*key), 0x602140_cmd, strlen(0x602140_cmd), 0x0, var_44);
+            }
+            puts("signature: ");
+            for (var_40 = 0x0; var_40 < var_44; var_40 = var_40 + 0x1) {
+                    printf(0x401656);
+            }
+            puts(0x40165b);
+    }
+    rax = *0x28 ^ *0x28;
+    if (rax != 0x0) {
+            rax = __stack_chk_fail();
+    }
+    return rax;
+}
+
+__int64 sign_it()
+{
+  const char *v0; // rsi@3
+  size_t v1; // r13@9
+  char *v2; // rdi@9
+  unsigned int v3; // er12@9
+  char *v4; // rbx@9
+  __int64 v5; // rax@9
+  size_t v6; // r13@10
+  char *v7; // rdi@10
+  unsigned int v8; // er12@10
+  char *v9; // rbx@10
+  __int64 v10; // rax@10
+  unsigned int v12; // [rsp+Ch] [rbp-44h]@9
+  unsigned int i; // [rsp+10h] [rbp-40h]@11
+  int v14; // [rsp+14h] [rbp-3Ch]@3
+  __int64 v15; // [rsp+18h] [rbp-38h]@9
+  char *s1; // [rsp+20h] [rbp-30h]@3
+  __int64 v17; // [rsp+28h] [rbp-28h]@1
+
+  v17 = *MK_FP(__FS__, 40LL);
+  if ( !exec_guy )
+  {
+    exec_guy = (__int64)calloc(0x24uLL, 1uLL);
+    s_exec_guy = exec_guy;
+    m_exec_guy = exec_guy + 1;
+    *(_QWORD *)(exec_guy + 20) = deny_command;
+    *(_QWORD *)(s_exec_guy + 28) = exec_command;
+  }
+  puts("what command do you want to sign?");
+  printf(">_ ");
+  v14 = read(0, global, 0x100uLL);
+  global[v14] = 0;
+  s1 = global;
+  v0 = "ls\n";
+  if ( !strcmp(global, "ls\n")
+    || (v0 = "pwd\n", !strcmp(s1, "pwd\n"))
+    || (v0 = "id\n", !strcmp(s1, "id\n"))
+    || (v0 = "whoami\n", !strcmp(s1, "whoami\n")) )
+  {
+    if ( byte_602240 )
+    {
+      v1 = strlen(s1);
+      v2 = key;
+      v3 = strlen(key);
+      v4 = key;
+      v5 = EVP_md5(v2, v0);
+      v15 = HMAC(v5, v4, v3, s1, v1, 0LL, &v12);
+    }
+    else
+    {
+      v6 = strlen(s1);
+      v7 = key;
+      v8 = strlen(key);
+      v9 = key;
+      v10 = EVP_sha1(v7, v0);
+      v15 = HMAC(v10, v9, v8, s1, v6, 0LL, &v12);
+    }
+    puts("signature: ");
+    for ( i = 0; i < v12; ++i )
+      printf("%02x", *(unsigned __int8 *)(i + v15));
+    puts(byte_40165B_main_menu);
+  }
+  else
+  {
+    puts("not going to sign that for you...");
+  }
+  return *MK_FP(__FS__, 40LL) ^ v17;
+}
+...
+
+
+int execute_it() {
+    if (*exec_guy == 0x0) {
+            *exec_guy = calloc(0x24, 0x1);
+            *s_exec_guy = *exec_guy;
+            *m_exec_guy = *exec_guy + 0x1;
+            *(*s_exec_guy + 0x14) = 0x400d36;
+            *(*s_exec_guy + 0x1c) = 0x400d5b;
+    }
+    var_58 = sign_extend_64(*(int8_t *)use_md5 & 0xff);
+    var_50 = *m_exec_guy;
+    if (var_58 == 0x0) {
+            var_50 = *s_exec_guy;
+    }
+    puts("what command do you want to run?");
+    printf(0x401622);
+    // read it in and set the end to null
+    *(int8_t *)(sign_extend_32(read(0x0, 0x602140_cmd, 0x100)) + 0x602140_cmd) = 0x0;
+    if ((*(int8_t *)use_md5 & 0xff) != 0x0) {
+            var_48 = HMAC(EVP_md5(), *key, strlen(*key), 0x602140_cmd, strlen(0x602140_cmd), 0x0, var_64);
+    }
+    else {
+            var_48 = HMAC(EVP_sha1(), *key, strlen(*key), 0x602140_cmd, strlen(0x602140_cmd), 0x0, var_64);
+    }
+    memcpy(var_50, var_48, var_64);
+    var_38 = calloc(0x1, 0x1 + var_64 + var_64);
+    var_30 = calloc(0x1, 0x1 + var_64 + var_64);
+    printf("gimme signature:\n>_ ");
+    read(0x0, var_30, 0x1 + var_64 + var_64);
+    var_60 = 0x0;
+    goto loc_4012fc;
+
+loc_4012fc:
+    if (0x1 + var_64 + var_64 > var_60) goto loc_4012d2;
+
+loc_40130b:
+    for (var_5C = 0x0; var_5C < var_64; var_5C = var_5C + 0x1) {
+            sprintf(var_38 + var_5C + var_5C, 0x401656);
+    }
+
+    if (strcmp(var_38, var_30) != 0x0) {
+            rax = *m_exec_guy;
+            (*(rax + 0x13))(0x602140_cmd);
+    }
+    else {
+            rax = *m_exec_guy;
+            (*(rax + 0x1b))(0x602140_cmd);
+    }
+    puts(0x40165b);
+    rax = *0x28 ^ *0x28;
+    if (rax != 0x0) {
+            rax = __stack_chk_fail();
+    }
+    return rax;
+
+loc_4012d2:
+    if ((*(int8_t *)(var_30 + sign_extend_64(var_60)) & 0xff) != 0xa) goto loc_4012f8;
+
+loc_4012e6:
+    *(int8_t *)(var_30 + sign_extend_64(var_60)) = 0x0;
+    goto loc_40130b;
+
+loc_4012f8:
+    var_60 = var_60 + 0x1;
+    goto loc_4012fc;
+}
+
+
+__int64 execute_it()
+{
+  size_t v0; // r13@6
+  char *v1; // rdi@6
+  unsigned int v2; // er12@6
+  char *v3; // rbx@6
+  __int64 v4; // rax@6
+  size_t v5; // r13@7
+  char *v6; // rdi@7
+  unsigned int v7; // er12@7
+  char *v8; // rbx@7
+  __int64 v9; // rax@7
+  void *v10; // rsi@16
+  size_t n; // [rsp+Ch] [rbp-64h]@6
+  unsigned int i; // [rsp+14h] [rbp-5Ch]@13
+  int v14; // [rsp+18h] [rbp-58h]@3
+  int v15; // [rsp+1Ch] [rbp-54h]@5
+  void *dest; // [rsp+20h] [rbp-50h]@3
+  void *src; // [rsp+28h] [rbp-48h]@6
+  char *s; // [rsp+30h] [rbp-40h]@5
+  char *s1; // [rsp+38h] [rbp-38h]@8
+  void *buf; // [rsp+40h] [rbp-30h]@8
+  __int64 v21; // [rsp+48h] [rbp-28h]@1
+
+  v21 = *MK_FP(__FS__, 40LL);
+  if ( !exec_guy )
+  {
+    exec_guy = (__int64)calloc(0x24uLL, 1uLL);
+    s_exec_guy = exec_guy;
+    m_exec_guy = exec_guy + 1;
+    *(_QWORD *)(exec_guy + 20) = deny_command;
+    *(_QWORD *)(s_exec_guy + 28) = exec_command;
+  }
+  v14 = byte_602240;
+  dest = (void *)m_exec_guy;
+  if ( !byte_602240 ) // weird magical thing
+    dest = (void *)s_exec_guy;
+  puts("what command do you want to run?");
+  printf(">_ ");
+  v15 = read(0, global, 0x100uLL);
+  global[v15] = 0;
+  s = global;
+  if ( byte_602240 )
+  {
+    v0 = strlen(s);
+    v1 = key;
+    v2 = strlen(key);
+    v3 = key;
+    v4 = EVP_md5(v1, global);
+    src = (void *)HMAC(v4, v3, v2, s, v0, 0LL, &n);
+  }
+  else
+  {
+    v5 = strlen(s);
+    v6 = key;
+    v7 = strlen(key);
+    v8 = key;
+    v9 = EVP_sha1(v6, global);
+    src = (void *)HMAC(v9, v8, v7, s, v5, 0LL, &n);
+  }
+  memcpy(dest, src, (unsigned int)n);
+  s1 = (char *)calloc(1uLL, (unsigned int)(2 * n + 1));
+  buf = calloc(1uLL, (unsigned int)(2 * n + 1));
+  printf("gimme signature:\n>_ ");
+  v15 = read(0, buf, (unsigned int)(2 * n + 1));
+  for ( HIDWORD(n) = 0; (unsigned int)(2 * n + 1) > HIDWORD(n); ++HIDWORD(n) )
+  {
+    if ( *((_BYTE *)buf + SHIDWORD(n)) == 10 )
+    {
+      *((_BYTE *)buf + SHIDWORD(n)) = 0;
+      break;
+    }
+  }
+  // that disgusting blob makes n the strlen of your sig by finding \n
+
+  for ( i = 0; i < (unsigned int)n; ++i )
+    sprintf(&s1[2 * i], "%02x", *((unsigned __int8 *)src + i));
+  v10 = buf;
+  if ( !strcmp(s1, (const char *)buf) )
+    (*(void (__fastcall **)(char *, void *))(m_exec_guy + 27))(global, v10);
+  else
+    (*(void (__fastcall **)(char *, void *))(m_exec_guy + 19))(global, v10);
+  puts(byte_40165B_main_menu);
+  return *MK_FP(__FS__, 40LL) ^ v21;
+}
+
+
+
+
+
+....
+
+
+
+void init_key()
+{
+  FILE *stream; // [rsp+8h] [rbp-18h]@1
+  __int64 size; // [rsp+10h] [rbp-10h]@1
+  void *ptr; // [rsp+18h] [rbp-8h]@1
+
+  stream = fopen("flag", "rb");
+  fseek(stream, 0LL, 2);
+  size = ftell(stream);
+  fseek(stream, 0LL, 0);
+  ptr = calloc(1uLL, size + 1);
+  if ( !ptr )
+    exit(1);
+  fread(ptr, size, 1uLL, stream);
+  fclose(stream);
+  *((_BYTE *)ptr + size) = 0;
+  key = strdup((const char *)ptr);
+  free(ptr);
+}
+
+
+
+
+
+
+
+    unsigned char *HMAC(
+        const EVP_MD *evp_md, // EVP_sha1(key, global); or EVP_md5(key, global);
+        const void *key,
+        int key_len,        // strlen(key)
+        const unsigned char *d, // command
+        int n,                   // strlen(command)
+        unsigned char *md,     //NULL : If md is NULL, the digest is placed in a static array.     
+        unsigned int *md_len    // the size of the output
+    );
