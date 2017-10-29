@@ -1,3 +1,0 @@
-break load_r1_word
-break printTape
-
